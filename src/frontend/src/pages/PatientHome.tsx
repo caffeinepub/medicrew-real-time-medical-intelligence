@@ -1,149 +1,161 @@
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Sparkles, Activity, Heart, Thermometer, Droplet } from 'lucide-react';
+import { Heart, Activity, Thermometer, Calendar, Stethoscope, MessageCircle, Wifi } from 'lucide-react';
+import { useAnimatedCounter } from '../hooks/useAnimatedCounter';
+import { useGetPatientRecords } from '../hooks/useQueries';
+import { isFeatureEnabled } from '../config/features';
 import AIHelpDesk from '../components/patient/AIHelpDesk';
 import AppointmentBooking from '../components/patient/AppointmentBooking';
 import DeviceMonitor from '../components/patient/DeviceMonitor';
-import { useAnimatedCounter } from '../hooks/useAnimatedCounter';
 
 export default function PatientHome() {
   const [showHelpDesk, setShowHelpDesk] = useState(false);
-  const [showBooking, setShowBooking] = useState(false);
+  const [showAppointmentBooking, setShowAppointmentBooking] = useState(false);
   const [showDeviceMonitor, setShowDeviceMonitor] = useState(false);
-  const [isDeviceConnected, setIsDeviceConnected] = useState(false);
-  
-  const heartRate = useAnimatedCounter(72, 1500);
-  const spo2 = useAnimatedCounter(98, 1500);
-  const temp = useAnimatedCounter(368, 1500);
+  const [deviceConnected, setDeviceConnected] = useState(false);
 
-  const handleDeviceConnect = () => {
-    setIsDeviceConnected(true);
-  };
+  const { data: patientRecords } = useGetPatientRecords();
+
+  // Get latest vitals with polling
+  const latestVitals = patientRecords?.vitals?.[patientRecords.vitals.length - 1];
+  
+  const heartRate = useAnimatedCounter(latestVitals ? Number(latestVitals.heartRate) : 72, 1000);
+  const spo2 = useAnimatedCounter(latestVitals ? Number(latestVitals.oxygenSaturation) : 98, 1000);
+  const temperature = latestVitals ? latestVitals.temperature : 36.8;
 
   return (
-    <main className="flex-1 min-h-screen py-8 px-4">
-      <div className="container max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-12 animate-fade-in-up">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center glow-primary">
-              <Heart className="w-6 h-6 text-primary" />
+    <main className="flex-1 py-12 px-6">
+      <div className="container max-w-6xl mx-auto">
+        {/* Top Bar */}
+        <div className="flex items-center justify-between mb-12 animate-calm-fade-up">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+              <Heart className="w-8 h-8 text-primary" />
             </div>
             <div>
-              <h1 className="text-5xl font-bold">Patient Dashboard</h1>
-              <p className="text-lg font-light text-muted-foreground">Your health at a glance</p>
+              <h1 className="text-4xl font-semibold tracking-tight">MediCrew</h1>
+              <p className="text-muted-foreground">Your Health Dashboard</p>
             </div>
           </div>
+          
+          {isFeatureEnabled('DEVICE_MONITORING') && (
+            <Button
+              variant={deviceConnected ? 'default' : 'outline'}
+              className="rounded-full hover-lift"
+              onClick={() => setShowDeviceMonitor(true)}
+            >
+              <Wifi className={`w-4 h-4 mr-2 ${deviceConnected ? 'animate-soft-pulse' : ''}`} />
+              {deviceConnected ? 'Device Connected' : 'Connect Device'}
+            </Button>
+          )}
         </div>
 
-        {/* Health Status Card - Large Animated */}
-        <div className="mb-12 animate-scale-in">
-          <Card className="glass-panel border-2 border-primary/30 glow-primary">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-3xl mb-2">Health Status</CardTitle>
-                  <CardDescription className="text-base">Real-time vitals monitoring</CardDescription>
+        {/* Primary Health Status Card */}
+        <Card className="card-soft mb-8 animate-calm-fade-up" style={{ animationDelay: '0.1s' }}>
+          <CardHeader>
+            <CardTitle className="text-2xl">Current Health Status</CardTitle>
+            <CardDescription>Real-time vitals from your connected devices</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10">
+                <Heart className="w-10 h-10 text-primary mx-auto mb-3" />
+                <div className="text-5xl font-semibold mb-2">{heartRate}</div>
+                <div className="text-sm text-muted-foreground">Heart Rate (bpm)</div>
+              </div>
+              
+              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-secondary/5 to-secondary/10">
+                <Activity className="w-10 h-10 text-secondary mx-auto mb-3" />
+                <div className="text-5xl font-semibold mb-2">{spo2}</div>
+                <div className="text-sm text-muted-foreground">SpO₂ (%)</div>
+              </div>
+              
+              <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10">
+                <Thermometer className="w-10 h-10 text-primary mx-auto mb-3" />
+                <div className="text-5xl font-semibold mb-2">{temperature.toFixed(1)}</div>
+                <div className="text-sm text-muted-foreground">Temperature (°C)</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {isFeatureEnabled('APPOINTMENTS') && (
+            <Card 
+              className="card-soft hover-lift cursor-pointer animate-calm-fade-up" 
+              style={{ animationDelay: '0.2s' }}
+              onClick={() => setShowAppointmentBooking(true)}
+            >
+              <CardHeader>
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Calendar className="w-7 h-7 text-primary" />
                 </div>
-                <Button
-                  onClick={() => setShowDeviceMonitor(true)}
-                  variant="outline"
-                  className="rounded-full"
-                >
-                  <Activity className="w-4 h-4 mr-2" />
-                  Connect Device
+                <CardTitle className="text-2xl">Book Appointment</CardTitle>
+                <CardDescription className="text-base">
+                  Schedule a consultation with verified doctors
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full rounded-full">
+                  Schedule Now
                 </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div className="glass-card rounded-2xl p-6 text-center">
-                  <Heart className="w-8 h-8 text-chart-1 mx-auto mb-3" />
-                  <div className="text-4xl font-bold text-chart-1 mb-1 animate-counter">{heartRate}</div>
-                  <div className="text-sm text-muted-foreground">Heart Rate (bpm)</div>
+              </CardContent>
+            </Card>
+          )}
+
+          {isFeatureEnabled('VITALS_TRACKING') && (
+            <Card 
+              className="card-soft hover-lift cursor-pointer animate-calm-fade-up" 
+              style={{ animationDelay: '0.3s' }}
+            >
+              <CardHeader>
+                <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mb-4">
+                  <Stethoscope className="w-7 h-7 text-secondary" />
                 </div>
-                <div className="glass-card rounded-2xl p-6 text-center">
-                  <Activity className="w-8 h-8 text-chart-3 mx-auto mb-3" />
-                  <div className="text-4xl font-bold text-chart-3 mb-1 animate-counter">{spo2}%</div>
-                  <div className="text-sm text-muted-foreground">Blood Oxygen</div>
-                </div>
-                <div className="glass-card rounded-2xl p-6 text-center">
-                  <Thermometer className="w-8 h-8 text-chart-4 mx-auto mb-3" />
-                  <div className="text-4xl font-bold text-chart-4 mb-1 animate-counter">{(temp / 10).toFixed(1)}°C</div>
-                  <div className="text-sm text-muted-foreground">Temperature</div>
-                </div>
-                <div className="glass-card rounded-2xl p-6 text-center">
-                  <Droplet className="w-8 h-8 text-chart-2 mx-auto mb-3" />
-                  <div className="text-4xl font-bold text-chart-2 mb-1 animate-counter">120/80</div>
-                  <div className="text-sm text-muted-foreground">Blood Pressure</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                <CardTitle className="text-2xl">Health Analysis</CardTitle>
+                <CardDescription className="text-base">
+                  View insights and trends from your health data
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button variant="outline" className="w-full rounded-full">
+                  View Insights
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
-        {/* Action Panels - Floating */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <Card 
-            className="glass-panel border-2 border-primary/20 hover:border-primary/50 transition-all duration-500 cursor-pointer hover:scale-105 hover:glow-primary animate-fade-in-up"
-            onClick={() => setShowBooking(true)}
-          >
-            <CardHeader>
-              <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-4 glow-primary">
-                <Calendar className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle className="text-3xl">Book Appointment</CardTitle>
-              <CardDescription className="text-base leading-relaxed">
-                Schedule a consultation with verified doctors in your area
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full rounded-full" size="lg">
-                Find Doctors
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="glass-panel border-2 border-success/20 hover:border-success/50 transition-all duration-500 cursor-pointer hover:scale-105 hover:glow-success animate-fade-in-up"
-            style={{ animationDelay: '0.1s' }}
-          >
-            <CardHeader>
-              <div className="w-16 h-16 rounded-2xl bg-success/20 flex items-center justify-center mb-4 glow-success">
-                <Sparkles className="w-8 h-8 text-success" />
-              </div>
-              <CardTitle className="text-3xl">Health Analysis</CardTitle>
-              <CardDescription className="text-base leading-relaxed">
-                Get instant AI-powered analysis of your symptoms and vitals
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button className="w-full rounded-full bg-success hover:bg-success/90" size="lg">
-                View Insights
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Glowing Help Desk Button - Bottom Right */}
-        <Button
-          onClick={() => setShowHelpDesk(true)}
-          size="lg"
-          className="fixed bottom-8 right-8 w-16 h-16 rounded-full shadow-glow-lg animate-pulse-glow z-40 p-0"
-        >
-          <Sparkles className="w-8 h-8" />
-        </Button>
+        {/* AI Help Desk Button */}
+        {isFeatureEnabled('HELP_DESK') && (
+          <div className="fixed bottom-8 right-8 z-40 animate-calm-fade-up" style={{ animationDelay: '0.4s' }}>
+            <Button
+              size="lg"
+              className="rounded-full shadow-soft-lg hover-lift w-16 h-16 p-0 animate-soft-pulse"
+              onClick={() => setShowHelpDesk(true)}
+            >
+              <MessageCircle className="w-7 h-7" />
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Modals */}
-      {showHelpDesk && <AIHelpDesk onClose={() => setShowHelpDesk(false)} />}
-      {showBooking && <AppointmentBooking onClose={() => setShowBooking(false)} />}
-      {showDeviceMonitor && (
-        <DeviceMonitor 
-          onClose={() => setShowDeviceMonitor(false)} 
-          onConnect={handleDeviceConnect}
-          isConnected={isDeviceConnected}
+      {showHelpDesk && isFeatureEnabled('HELP_DESK') && (
+        <AIHelpDesk onClose={() => setShowHelpDesk(false)} />
+      )}
+      
+      {showAppointmentBooking && isFeatureEnabled('APPOINTMENTS') && (
+        <AppointmentBooking onClose={() => setShowAppointmentBooking(false)} />
+      )}
+      
+      {showDeviceMonitor && isFeatureEnabled('DEVICE_MONITORING') && (
+        <DeviceMonitor
+          onClose={() => setShowDeviceMonitor(false)}
+          onConnect={() => setDeviceConnected(true)}
+          isConnected={deviceConnected}
         />
       )}
     </main>

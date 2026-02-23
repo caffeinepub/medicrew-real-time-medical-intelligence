@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function useAnimatedCounter(
   end: number,
-  duration: number = 1000,
+  duration: number = 1200,
   start: number = 0
 ) {
   const [count, setCount] = useState(start);
@@ -15,6 +15,7 @@ export function useAnimatedCounter(
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       
+      // Slow, calm easing
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       setCount(Math.floor(start + (end - start) * easeOutQuart));
 

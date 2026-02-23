@@ -22,7 +22,7 @@ export default function DeviceMonitor({ onClose, onConnect, isConnected }: Devic
     bloodPressure: { systolic: 120, diastolic: 80 },
   });
 
-  // Simulate real-time data updates
+  // Simulate real-time data updates using polling pattern (not WebSocket)
   useEffect(() => {
     if (!isConnected) return;
 
@@ -53,35 +53,35 @@ export default function DeviceMonitor({ onClose, onConnect, isConnected }: Devic
 
   const getStatus = (type: string, value: number) => {
     if (type === 'heartRate') {
-      if (value < 60 || value > 100) return { label: 'Warning', color: 'warning' };
-      return { label: 'Normal', color: 'success' };
+      if (value < 60 || value > 100) return { label: 'Warning', color: 'alert-warning' };
+      return { label: 'Normal', color: 'alert-normal' };
     }
     if (type === 'spo2') {
-      if (value < 95) return { label: 'Critical', color: 'critical' };
-      return { label: 'Normal', color: 'success' };
+      if (value < 95) return { label: 'Critical', color: 'alert-critical' };
+      return { label: 'Normal', color: 'alert-normal' };
     }
     if (type === 'temperature') {
-      if (value > 37.5) return { label: 'Warning', color: 'warning' };
-      return { label: 'Normal', color: 'success' };
+      if (value > 37.5) return { label: 'Warning', color: 'alert-warning' };
+      return { label: 'Normal', color: 'alert-normal' };
     }
-    return { label: 'Normal', color: 'success' };
+    return { label: 'Normal', color: 'alert-normal' };
   };
 
   return (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-calm-fade-in">
+      <Card className="w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-soft-lg card-soft">
         <CardHeader className="border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-success/10 flex items-center justify-center">
-                <Activity className="w-6 h-6 text-success" />
+              <div className="w-12 h-12 rounded-2xl bg-alert-normal/10 flex items-center justify-center">
+                <Activity className="w-6 h-6 text-alert-normal" />
               </div>
               <div>
                 <CardTitle className="text-2xl">Device Health Monitor</CardTitle>
                 <CardDescription>Connect and monitor your IoT medical device</CardDescription>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+            <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-muted">
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -116,7 +116,7 @@ export default function DeviceMonitor({ onClose, onConnect, isConnected }: Devic
               <Button 
                 onClick={handleConnect} 
                 disabled={connecting || !deviceId.trim()}
-                className="w-full max-w-md mx-auto block rounded-full"
+                className="w-full max-w-md mx-auto block rounded-full hover-lift"
                 size="lg"
               >
                 {connecting ? (
@@ -131,88 +131,88 @@ export default function DeviceMonitor({ onClose, onConnect, isConnected }: Devic
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-success/10">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-alert-normal/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-success animate-pulse"></div>
+                  <div className="w-3 h-3 rounded-full bg-alert-normal animate-soft-pulse"></div>
                   <span className="font-medium">Device Connected</span>
                 </div>
-                <Badge variant="outline" className="bg-success/20 text-success border-success/30">
+                <Badge variant="outline" className="bg-alert-normal/20 text-alert-normal border-alert-normal/30">
                   Live
                 </Badge>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 {/* Heart Rate */}
-                <Card className="border-2">
+                <Card className="card-soft border-2">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        <Heart className="w-5 h-5 text-destructive" />
+                        <Heart className="w-5 h-5 text-primary" />
                         <span className="text-sm font-medium">Heart Rate</span>
                       </div>
                       <Badge 
-                        variant={getStatus('heartRate', vitals.heartRate).color === 'success' ? 'outline' : 'destructive'}
-                        className={getStatus('heartRate', vitals.heartRate).color === 'warning' ? 'bg-warning text-warning-foreground' : ''}
+                        variant={getStatus('heartRate', vitals.heartRate).color === 'alert-normal' ? 'outline' : 'destructive'}
+                        className={getStatus('heartRate', vitals.heartRate).color === 'alert-warning' ? 'bg-alert-warning text-alert-warning-foreground' : ''}
                       >
                         {getStatus('heartRate', vitals.heartRate).label}
                       </Badge>
                     </div>
-                    <div className="text-4xl font-bold">{vitals.heartRate}</div>
+                    <div className="text-4xl font-semibold mb-1">{vitals.heartRate}</div>
                     <div className="text-sm text-muted-foreground">bpm</div>
                   </CardContent>
                 </Card>
 
                 {/* SpO2 */}
-                <Card className="border-2">
+                <Card className="card-soft border-2">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        <Droplet className="w-5 h-5 text-primary" />
-                        <span className="text-sm font-medium">Blood Oxygen</span>
+                        <Activity className="w-5 h-5 text-secondary" />
+                        <span className="text-sm font-medium">SpO₂</span>
                       </div>
                       <Badge 
-                        variant={getStatus('spo2', vitals.spo2).color === 'success' ? 'outline' : 'destructive'}
-                        className={getStatus('spo2', vitals.spo2).color === 'critical' ? 'bg-critical text-critical-foreground' : ''}
+                        variant={getStatus('spo2', vitals.spo2).color === 'alert-normal' ? 'outline' : 'destructive'}
+                        className={getStatus('spo2', vitals.spo2).color === 'alert-critical' ? 'bg-alert-critical text-alert-critical-foreground' : ''}
                       >
                         {getStatus('spo2', vitals.spo2).label}
                       </Badge>
                     </div>
-                    <div className="text-4xl font-bold">{vitals.spo2}</div>
+                    <div className="text-4xl font-semibold mb-1">{vitals.spo2}</div>
                     <div className="text-sm text-muted-foreground">%</div>
                   </CardContent>
                 </Card>
 
                 {/* Temperature */}
-                <Card className="border-2">
+                <Card className="card-soft border-2">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        <Thermometer className="w-5 h-5 text-warning" />
+                        <Thermometer className="w-5 h-5 text-primary" />
                         <span className="text-sm font-medium">Temperature</span>
                       </div>
                       <Badge 
-                        variant={getStatus('temperature', vitals.temperature).color === 'success' ? 'outline' : 'destructive'}
-                        className={getStatus('temperature', vitals.temperature).color === 'warning' ? 'bg-warning text-warning-foreground' : ''}
+                        variant={getStatus('temperature', vitals.temperature).color === 'alert-normal' ? 'outline' : 'destructive'}
+                        className={getStatus('temperature', vitals.temperature).color === 'alert-warning' ? 'bg-alert-warning text-alert-warning-foreground' : ''}
                       >
                         {getStatus('temperature', vitals.temperature).label}
                       </Badge>
                     </div>
-                    <div className="text-4xl font-bold">{vitals.temperature}</div>
+                    <div className="text-4xl font-semibold mb-1">{vitals.temperature}</div>
                     <div className="text-sm text-muted-foreground">°C</div>
                   </CardContent>
                 </Card>
 
                 {/* Blood Pressure */}
-                <Card className="border-2">
+                <Card className="card-soft border-2">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        <Activity className="w-5 h-5 text-success" />
+                        <Droplet className="w-5 h-5 text-secondary" />
                         <span className="text-sm font-medium">Blood Pressure</span>
                       </div>
                       <Badge variant="outline">Normal</Badge>
                     </div>
-                    <div className="text-4xl font-bold">
+                    <div className="text-4xl font-semibold mb-1">
                       {vitals.bloodPressure.systolic}/{vitals.bloodPressure.diastolic}
                     </div>
                     <div className="text-sm text-muted-foreground">mmHg</div>
@@ -220,10 +220,9 @@ export default function DeviceMonitor({ onClose, onConnect, isConnected }: Devic
                 </Card>
               </div>
 
-              <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
-                <p className="font-medium mb-1">ℹ️ Real-Time Monitoring Active</p>
-                <p>Your vitals are being monitored continuously. Doctors will be notified automatically if any critical readings are detected.</p>
-              </div>
+              <Button variant="outline" onClick={onClose} className="w-full rounded-full hover-lift" size="lg">
+                Close Monitor
+              </Button>
             </div>
           )}
         </CardContent>

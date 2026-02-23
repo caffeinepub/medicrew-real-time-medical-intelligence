@@ -1,70 +1,43 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import DoctorRegistration from '../components/doctor/DoctorRegistration';
+import { isFeatureEnabled } from '../config/features';
 import PatientSearch from '../components/doctor/PatientSearch';
 import HospitalLocator from '../components/HospitalLocator';
-import ApprovalStatus from '../components/ApprovalStatus';
-import { useIsCallerApproved } from '../hooks/useQueries';
-import { Users, MapPin, Stethoscope } from 'lucide-react';
 
 export default function DoctorDashboard() {
-  const [activeTab, setActiveTab] = useState('patients');
-  const { data: isApproved, isLoading } = useIsCallerApproved();
-
-  if (isLoading) {
-    return (
-      <main className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </main>
-    );
-  }
-
-  // Show registration form if not approved
-  if (!isApproved) {
-    return (
-      <main className="flex-1 py-8">
-        <div className="container max-w-4xl">
-          <DoctorRegistration />
-        </div>
-      </main>
-    );
-  }
+  const [activeTab, setActiveTab] = useState('search');
 
   return (
-    <main className="flex-1 py-8">
-      <div className="container max-w-7xl">
+    <div className="flex-1 pt-20">
+      <div className="container max-w-7xl mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Doctor Dashboard</h1>
-          <p className="text-muted-foreground">Monitor and manage patient health data</p>
+          <h1 className="text-4xl font-semibold mb-2">Doctor Dashboard</h1>
+          <p className="text-muted-foreground">Access patient records and medical facilities</p>
         </div>
 
-        <ApprovalStatus />
-
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 h-auto">
-            <TabsTrigger value="patients" className="flex items-center gap-2 py-3">
-              <Users className="w-4 h-4" />
-              <span>Patient Records</span>
-            </TabsTrigger>
-            <TabsTrigger value="hospitals" className="flex items-center gap-2 py-3">
-              <MapPin className="w-4 h-4" />
-              <span>Find Hospitals</span>
-            </TabsTrigger>
+          <TabsList className="grid w-full max-w-md grid-cols-2">
+            {isFeatureEnabled('DOCTOR_DASHBOARD') && (
+              <TabsTrigger value="search">Patient Records</TabsTrigger>
+            )}
+            {isFeatureEnabled('HOSPITAL_LOCATOR') && (
+              <TabsTrigger value="locator">Hospital Locator</TabsTrigger>
+            )}
           </TabsList>
 
-          <TabsContent value="patients">
-            <PatientSearch />
-          </TabsContent>
+          {isFeatureEnabled('DOCTOR_DASHBOARD') && (
+            <TabsContent value="search" className="space-y-6">
+              <PatientSearch />
+            </TabsContent>
+          )}
 
-          <TabsContent value="hospitals">
-            <HospitalLocator />
-          </TabsContent>
+          {isFeatureEnabled('HOSPITAL_LOCATOR') && (
+            <TabsContent value="locator" className="space-y-6">
+              <HospitalLocator />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
-    </main>
+    </div>
   );
 }
-

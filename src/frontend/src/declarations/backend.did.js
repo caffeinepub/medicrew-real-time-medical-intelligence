@@ -28,7 +28,7 @@ export const MedicalFacility = IDL.Record({
   'phone' : IDL.Text,
   'coordinates' : IDL.Tuple(IDL.Float64, IDL.Float64),
 });
-export const UserRole = IDL.Variant({
+export const UserRole__1 = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
   'guest' : IDL.Null,
@@ -40,6 +40,24 @@ export const BookingRequest = IDL.Record({
   'doctor' : IDL.Principal,
   'endTime' : Time,
   'description' : IDL.Text,
+});
+export const UserRole = IDL.Variant({
+  'patient' : IDL.Null,
+  'admin' : IDL.Null,
+  'doctor' : IDL.Null,
+  'superAdmin' : IDL.Null,
+});
+export const AdminInfo = IDL.Record({
+  'expiresAt' : IDL.Opt(IDL.Int),
+  'name' : IDL.Text,
+  'role' : UserRole,
+  'user' : IDL.Principal,
+});
+export const Device = IDL.Record({
+  'status' : IDL.Variant({ 'active' : IDL.Null, 'inactive' : IDL.Null }),
+  'deviceId' : IDL.Text,
+  'lastSync' : IDL.Int,
+  'linkedPatientId' : IDL.Opt(IDL.Principal),
 });
 export const AppointmentStatus = IDL.Variant({
   'cancelled' : IDL.Null,
@@ -56,10 +74,21 @@ export const Appointment = IDL.Record({
   'endTime' : Time,
   'description' : IDL.Text,
 });
+export const AuditLog = IDL.Record({
+  'action' : IDL.Text,
+  'metadata' : IDL.Opt(IDL.Text),
+  'performedBy' : IDL.Principal,
+  'timestamp' : IDL.Int,
+  'targetUser' : IDL.Opt(IDL.Principal),
+});
 export const UserProfile = IDL.Record({
+  'status' : IDL.Text,
   'name' : IDL.Text,
   'role' : IDL.Text,
+  'roleExpiresAt' : IDL.Opt(IDL.Int),
   'medicalRole' : IDL.Text,
+  'previousRole' : IDL.Opt(UserRole),
+  'systemRole' : UserRole,
 });
 export const DailyAvailability = IDL.Record({
   'startTime' : Time,
@@ -103,6 +132,11 @@ export const PatientRecord = IDL.Record({
   'symptoms' : IDL.Vec(Symptom),
   'vitals' : IDL.Vec(VitalSigns),
 });
+export const RoleInfo = IDL.Record({
+  'expiresAt' : IDL.Opt(IDL.Int),
+  'isExpired' : IDL.Bool,
+  'role' : UserRole,
+});
 export const ApprovalStatus = IDL.Variant({
   'pending' : IDL.Null,
   'approved' : IDL.Null,
@@ -142,11 +176,23 @@ export const idlService = IDL.Service({
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addMedicalFacility' : IDL.Func([MedicalFacility], [], []),
-  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'addTemporaryAdmin' : IDL.Func([IDL.Principal, IDL.Int], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole__1], [], []),
   'bookAppointment' : IDL.Func([BookingRequest], [IDL.Nat], []),
+  'checkAdminExpiration' : IDL.Func([], [IDL.Bool], ['query']),
+  'createDevice' : IDL.Func([IDL.Text], [], []),
+  'extendAdminExpiry' : IDL.Func([IDL.Principal, IDL.Int], [], []),
+  'getAllAdmins' : IDL.Func([], [IDL.Vec(AdminInfo)], ['query']),
+  'getAllDevices' : IDL.Func([], [IDL.Vec(Device)], ['query']),
   'getAppointments' : IDL.Func([], [IDL.Vec(Appointment)], ['query']),
+  'getAuditLogs' : IDL.Func([IDL.Nat, IDL.Nat], [IDL.Vec(AuditLog)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
-  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole__1], ['query']),
+  'getDevicesByPatient' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Vec(Device)],
+      ['query'],
+    ),
   'getDoctorAvailability' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(DoctorAvailability)],
@@ -170,16 +216,25 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'getUserRole' : IDL.Func([], [RoleInfo], ['query']),
+  'isActiveAdminSession' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'isCallerApproved' : IDL.Func([], [IDL.Bool], ['query']),
+  'linkDeviceToPatient' : IDL.Func([IDL.Text, IDL.Principal], [], []),
   'listApprovals' : IDL.Func([], [IDL.Vec(UserApprovalInfo)], ['query']),
   'logSymptom' : IDL.Func([Symptom], [], []),
   'logVitals' : IDL.Func([VitalSigns], [], []),
+  'promoteToAdmin' : IDL.Func([IDL.Principal], [], []),
   'registerDoctor' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'requestAdminAccess' : IDL.Func([], [], []),
   'requestApproval' : IDL.Func([], [], []),
+  'returnToDashboard' : IDL.Func([IDL.Text], [IDL.Bool], []),
+  'revokeAdmin' : IDL.Func([IDL.Principal], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'setApproval' : IDL.Func([IDL.Principal, ApprovalStatus], [], []),
   'setDoctorAvailability' : IDL.Func([WeeklyAvailability], [], []),
+  'toggleDeviceStatus' : IDL.Func([IDL.Text], [], []),
+  'unlinkDevice' : IDL.Func([IDL.Text], [], []),
   'updateAppointmentStatus' : IDL.Func([IDL.Nat, AppointmentStatus], [], []),
   'verifyDoctor' : IDL.Func([IDL.Principal], [], []),
 });
@@ -207,7 +262,7 @@ export const idlFactory = ({ IDL }) => {
     'phone' : IDL.Text,
     'coordinates' : IDL.Tuple(IDL.Float64, IDL.Float64),
   });
-  const UserRole = IDL.Variant({
+  const UserRole__1 = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
     'guest' : IDL.Null,
@@ -219,6 +274,24 @@ export const idlFactory = ({ IDL }) => {
     'doctor' : IDL.Principal,
     'endTime' : Time,
     'description' : IDL.Text,
+  });
+  const UserRole = IDL.Variant({
+    'patient' : IDL.Null,
+    'admin' : IDL.Null,
+    'doctor' : IDL.Null,
+    'superAdmin' : IDL.Null,
+  });
+  const AdminInfo = IDL.Record({
+    'expiresAt' : IDL.Opt(IDL.Int),
+    'name' : IDL.Text,
+    'role' : UserRole,
+    'user' : IDL.Principal,
+  });
+  const Device = IDL.Record({
+    'status' : IDL.Variant({ 'active' : IDL.Null, 'inactive' : IDL.Null }),
+    'deviceId' : IDL.Text,
+    'lastSync' : IDL.Int,
+    'linkedPatientId' : IDL.Opt(IDL.Principal),
   });
   const AppointmentStatus = IDL.Variant({
     'cancelled' : IDL.Null,
@@ -235,10 +308,21 @@ export const idlFactory = ({ IDL }) => {
     'endTime' : Time,
     'description' : IDL.Text,
   });
+  const AuditLog = IDL.Record({
+    'action' : IDL.Text,
+    'metadata' : IDL.Opt(IDL.Text),
+    'performedBy' : IDL.Principal,
+    'timestamp' : IDL.Int,
+    'targetUser' : IDL.Opt(IDL.Principal),
+  });
   const UserProfile = IDL.Record({
+    'status' : IDL.Text,
     'name' : IDL.Text,
     'role' : IDL.Text,
+    'roleExpiresAt' : IDL.Opt(IDL.Int),
     'medicalRole' : IDL.Text,
+    'previousRole' : IDL.Opt(UserRole),
+    'systemRole' : UserRole,
   });
   const DailyAvailability = IDL.Record({
     'startTime' : Time,
@@ -282,6 +366,11 @@ export const idlFactory = ({ IDL }) => {
     'symptoms' : IDL.Vec(Symptom),
     'vitals' : IDL.Vec(VitalSigns),
   });
+  const RoleInfo = IDL.Record({
+    'expiresAt' : IDL.Opt(IDL.Int),
+    'isExpired' : IDL.Bool,
+    'role' : UserRole,
+  });
   const ApprovalStatus = IDL.Variant({
     'pending' : IDL.Null,
     'approved' : IDL.Null,
@@ -321,11 +410,27 @@ export const idlFactory = ({ IDL }) => {
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addMedicalFacility' : IDL.Func([MedicalFacility], [], []),
-    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'addTemporaryAdmin' : IDL.Func([IDL.Principal, IDL.Int], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole__1], [], []),
     'bookAppointment' : IDL.Func([BookingRequest], [IDL.Nat], []),
+    'checkAdminExpiration' : IDL.Func([], [IDL.Bool], ['query']),
+    'createDevice' : IDL.Func([IDL.Text], [], []),
+    'extendAdminExpiry' : IDL.Func([IDL.Principal, IDL.Int], [], []),
+    'getAllAdmins' : IDL.Func([], [IDL.Vec(AdminInfo)], ['query']),
+    'getAllDevices' : IDL.Func([], [IDL.Vec(Device)], ['query']),
     'getAppointments' : IDL.Func([], [IDL.Vec(Appointment)], ['query']),
+    'getAuditLogs' : IDL.Func(
+        [IDL.Nat, IDL.Nat],
+        [IDL.Vec(AuditLog)],
+        ['query'],
+      ),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
-    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole__1], ['query']),
+    'getDevicesByPatient' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Vec(Device)],
+        ['query'],
+      ),
     'getDoctorAvailability' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(DoctorAvailability)],
@@ -353,16 +458,25 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'getUserRole' : IDL.Func([], [RoleInfo], ['query']),
+    'isActiveAdminSession' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'isCallerApproved' : IDL.Func([], [IDL.Bool], ['query']),
+    'linkDeviceToPatient' : IDL.Func([IDL.Text, IDL.Principal], [], []),
     'listApprovals' : IDL.Func([], [IDL.Vec(UserApprovalInfo)], ['query']),
     'logSymptom' : IDL.Func([Symptom], [], []),
     'logVitals' : IDL.Func([VitalSigns], [], []),
+    'promoteToAdmin' : IDL.Func([IDL.Principal], [], []),
     'registerDoctor' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'requestAdminAccess' : IDL.Func([], [], []),
     'requestApproval' : IDL.Func([], [], []),
+    'returnToDashboard' : IDL.Func([IDL.Text], [IDL.Bool], []),
+    'revokeAdmin' : IDL.Func([IDL.Principal], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'setApproval' : IDL.Func([IDL.Principal, ApprovalStatus], [], []),
     'setDoctorAvailability' : IDL.Func([WeeklyAvailability], [], []),
+    'toggleDeviceStatus' : IDL.Func([IDL.Text], [], []),
+    'unlinkDevice' : IDL.Func([IDL.Text], [], []),
     'updateAppointmentStatus' : IDL.Func([IDL.Nat, AppointmentStatus], [], []),
     'verifyDoctor' : IDL.Func([IDL.Principal], [], []),
   });

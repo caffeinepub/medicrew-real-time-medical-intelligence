@@ -1,70 +1,99 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Activity, FileText, TrendingUp, MapPin } from 'lucide-react';
+import { isFeatureEnabled } from '../config/features';
 import VitalsForm from '../components/patient/VitalsForm';
 import SymptomsForm from '../components/patient/SymptomsForm';
-import HealthRecords from '../components/patient/HealthRecords';
 import HealthInsights from '../components/patient/HealthInsights';
 import HospitalLocator from '../components/HospitalLocator';
-import ApprovalStatus from '../components/ApprovalStatus';
-import { Activity, FileText, Brain, MapPin } from 'lucide-react';
 
 export default function PatientDashboard() {
   const [activeTab, setActiveTab] = useState('vitals');
 
   return (
-    <main className="flex-1 py-8">
-      <div className="container max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Patient Dashboard</h1>
-          <p className="text-muted-foreground">Track your health data and get personalized insights</p>
+    <main className="flex-1 py-12 px-6">
+      <div className="container max-w-6xl mx-auto">
+        <div className="mb-8 animate-calm-fade-up">
+          <h1 className="text-5xl font-semibold mb-3 tracking-tight">Health Dashboard</h1>
+          <p className="text-xl text-muted-foreground">Track your vitals and manage your health</p>
         </div>
 
-        <ApprovalStatus />
-
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 h-auto">
-            <TabsTrigger value="vitals" className="flex items-center gap-2 py-3">
-              <Activity className="w-4 h-4" />
-              <span>Log Vitals</span>
-            </TabsTrigger>
-            <TabsTrigger value="symptoms" className="flex items-center gap-2 py-3">
-              <FileText className="w-4 h-4" />
-              <span>Log Symptoms</span>
-            </TabsTrigger>
-            <TabsTrigger value="insights" className="flex items-center gap-2 py-3">
-              <Brain className="w-4 h-4" />
-              <span>Health Insights</span>
-            </TabsTrigger>
-            <TabsTrigger value="hospitals" className="flex items-center gap-2 py-3">
-              <MapPin className="w-4 h-4" />
-              <span>Find Hospitals</span>
-            </TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 rounded-full p-1 bg-muted">
+            {isFeatureEnabled('VITALS_TRACKING') && (
+              <TabsTrigger value="vitals" className="rounded-full">
+                <Activity className="w-4 h-4 mr-2" />
+                Log Vitals
+              </TabsTrigger>
+            )}
+            {isFeatureEnabled('VITALS_TRACKING') && (
+              <TabsTrigger value="symptoms" className="rounded-full">
+                <FileText className="w-4 h-4 mr-2" />
+                Symptoms
+              </TabsTrigger>
+            )}
+            {isFeatureEnabled('VITALS_TRACKING') && (
+              <TabsTrigger value="insights" className="rounded-full">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Insights
+              </TabsTrigger>
+            )}
+            {isFeatureEnabled('HOSPITAL_LOCATOR') && (
+              <TabsTrigger value="hospitals" className="rounded-full">
+                <MapPin className="w-4 h-4 mr-2" />
+                Hospitals
+              </TabsTrigger>
+            )}
           </TabsList>
 
-          <TabsContent value="vitals" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              <VitalsForm />
-              <HealthRecords type="vitals" />
-            </div>
-          </TabsContent>
+          {isFeatureEnabled('VITALS_TRACKING') && (
+            <>
+              <TabsContent value="vitals" className="animate-calm-fade-up">
+                <Card className="card-soft">
+                  <CardHeader>
+                    <CardTitle className="text-2xl">Log Your Vitals</CardTitle>
+                    <CardDescription>Record your current vital signs</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <VitalsForm />
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          <TabsContent value="symptoms" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              <SymptomsForm />
-              <HealthRecords type="symptoms" />
-            </div>
-          </TabsContent>
+              <TabsContent value="symptoms" className="animate-calm-fade-up">
+                <Card className="card-soft">
+                  <CardHeader>
+                    <CardTitle className="text-2xl">Log Symptoms</CardTitle>
+                    <CardDescription>Record any symptoms you're experiencing</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <SymptomsForm />
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-          <TabsContent value="insights">
-            <HealthInsights />
-          </TabsContent>
+              <TabsContent value="insights" className="animate-calm-fade-up">
+                <HealthInsights />
+              </TabsContent>
+            </>
+          )}
 
-          <TabsContent value="hospitals">
-            <HospitalLocator />
-          </TabsContent>
+          {isFeatureEnabled('HOSPITAL_LOCATOR') && (
+            <TabsContent value="hospitals" className="animate-calm-fade-up">
+              <Card className="card-soft">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Find Nearby Hospitals</CardTitle>
+                  <CardDescription>Locate medical facilities in your area</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <HospitalLocator />
+                </CardContent>
+              </Card>
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </main>
   );
 }
-

@@ -10,6 +10,12 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface AdminInfo {
+  'expiresAt' : [] | [bigint],
+  'name' : string,
+  'role' : UserRole,
+  'user' : Principal,
+}
 export interface Appointment {
   'id' : bigint,
   'startTime' : Time,
@@ -26,6 +32,13 @@ export type AppointmentStatus = { 'cancelled' : null } |
 export type ApprovalStatus = { 'pending' : null } |
   { 'approved' : null } |
   { 'rejected' : null };
+export interface AuditLog {
+  'action' : string,
+  'metadata' : [] | [string],
+  'performedBy' : Principal,
+  'timestamp' : bigint,
+  'targetUser' : [] | [Principal],
+}
 export interface BookingRequest {
   'startTime' : Time,
   'patient' : Principal,
@@ -37,6 +50,13 @@ export interface DailyAvailability {
   'startTime' : Time,
   'endTime' : Time,
   'dayOfWeek' : bigint,
+}
+export interface Device {
+  'status' : { 'active' : null } |
+    { 'inactive' : null },
+  'deviceId' : string,
+  'lastSync' : bigint,
+  'linkedPatientId' : [] | [Principal],
 }
 export interface DoctorAvailability {
   'doctor' : Principal,
@@ -63,6 +83,11 @@ export interface PatientRecord {
   'symptoms' : Array<Symptom>,
   'vitals' : Array<VitalSigns>,
 }
+export interface RoleInfo {
+  'expiresAt' : [] | [bigint],
+  'isExpired' : boolean,
+  'role' : UserRole,
+}
 export interface Symptom {
   'description' : string,
   'timestamp' : Time,
@@ -74,11 +99,19 @@ export interface UserApprovalInfo {
   'principal' : Principal,
 }
 export interface UserProfile {
+  'status' : string,
   'name' : string,
   'role' : string,
+  'roleExpiresAt' : [] | [bigint],
   'medicalRole' : string,
+  'previousRole' : [] | [UserRole],
+  'systemRole' : UserRole,
 }
-export type UserRole = { 'admin' : null } |
+export type UserRole = { 'patient' : null } |
+  { 'admin' : null } |
+  { 'doctor' : null } |
+  { 'superAdmin' : null };
+export type UserRole__1 = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
 export interface VitalSigns {
@@ -126,11 +159,19 @@ export interface _SERVICE {
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addMedicalFacility' : ActorMethod<[MedicalFacility], undefined>,
-  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'addTemporaryAdmin' : ActorMethod<[Principal, bigint], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole__1], undefined>,
   'bookAppointment' : ActorMethod<[BookingRequest], bigint>,
+  'checkAdminExpiration' : ActorMethod<[], boolean>,
+  'createDevice' : ActorMethod<[string], undefined>,
+  'extendAdminExpiry' : ActorMethod<[Principal, bigint], undefined>,
+  'getAllAdmins' : ActorMethod<[], Array<AdminInfo>>,
+  'getAllDevices' : ActorMethod<[], Array<Device>>,
   'getAppointments' : ActorMethod<[], Array<Appointment>>,
+  'getAuditLogs' : ActorMethod<[bigint, bigint], Array<AuditLog>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
-  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getCallerUserRole' : ActorMethod<[], UserRole__1>,
+  'getDevicesByPatient' : ActorMethod<[Principal], Array<Device>>,
   'getDoctorAvailability' : ActorMethod<[Principal], [] | [DoctorAvailability]>,
   'getDoctorProfile' : ActorMethod<[Principal], DoctorProfile>,
   'getMedicalFacilities' : ActorMethod<[], Array<MedicalFacility>>,
@@ -141,16 +182,25 @@ export interface _SERVICE {
   'getPatientRecords' : ActorMethod<[], [] | [PatientRecord]>,
   'getPatientRecordsByUser' : ActorMethod<[Principal], [] | [PatientRecord]>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'getUserRole' : ActorMethod<[], RoleInfo>,
+  'isActiveAdminSession' : ActorMethod<[Principal], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'isCallerApproved' : ActorMethod<[], boolean>,
+  'linkDeviceToPatient' : ActorMethod<[string, Principal], undefined>,
   'listApprovals' : ActorMethod<[], Array<UserApprovalInfo>>,
   'logSymptom' : ActorMethod<[Symptom], undefined>,
   'logVitals' : ActorMethod<[VitalSigns], undefined>,
+  'promoteToAdmin' : ActorMethod<[Principal], undefined>,
   'registerDoctor' : ActorMethod<[string, string], undefined>,
+  'requestAdminAccess' : ActorMethod<[], undefined>,
   'requestApproval' : ActorMethod<[], undefined>,
+  'returnToDashboard' : ActorMethod<[string], boolean>,
+  'revokeAdmin' : ActorMethod<[Principal], undefined>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'setApproval' : ActorMethod<[Principal, ApprovalStatus], undefined>,
   'setDoctorAvailability' : ActorMethod<[WeeklyAvailability], undefined>,
+  'toggleDeviceStatus' : ActorMethod<[string], undefined>,
+  'unlinkDevice' : ActorMethod<[string], undefined>,
   'updateAppointmentStatus' : ActorMethod<
     [bigint, AppointmentStatus],
     undefined

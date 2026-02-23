@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, RefObject } from 'react';
 
-export function useMagneticHover(strength: number = 0.3) {
+export function useMagneticHover(strength: number = 0.05) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const elementRef = useRef<HTMLElement>(null);
 
@@ -13,6 +13,7 @@ export function useMagneticHover(strength: number = 0.3) {
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       
+      // Minimal movement for calm effect
       const deltaX = (e.clientX - centerX) * strength;
       const deltaY = (e.clientY - centerY) * strength;
       

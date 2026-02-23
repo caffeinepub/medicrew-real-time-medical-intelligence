@@ -1,289 +1,151 @@
 {
   "kind": "build_request",
-  "title": "Transform MediCrew into Igloo-style immersive healthcare experience",
-  "projectName": "MediCrew",
+  "title": "Implement hidden keyboard shortcut (Ctrl + Q) for Admin dashboard navigation",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Create an immersive landing page with full-viewport hero section featuring large bold text 'MediCrew — Intelligent Healthcare in Motion', subtle animated background with gradient shift or floating particles, smooth fade-in text animations, and a button with magnetic hover effect",
+      "id": "REQ-70",
+      "text": "Implement global keyboard listener for Ctrl + Q shortcut that navigates to /admin route, only active when user is authenticated and inside the application (not on landing page or authentication screens), blocked when active element is an input field, textarea, or contenteditable element to prevent accidental triggers during typing",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Full viewport height",
-          "Large bold text: 'MediCrew — Intelligent Healthcare in Motion'",
-          "Subtle animated background (gradient shift or floating particles)",
-          "Smooth fade-in text animation",
-          "Button with magnetic hover effect"
+          "Implement global keyboard listener: When user presses Ctrl + Q, The app should navigate to /admin",
+          "The shortcut must work only if: User is authenticated (logged in), User is inside the application (not on landing page)",
+          "The shortcut must be blocked when the user is typing in: <input> fields, <textarea> fields, Any contenteditable element"
         ]
       },
       "acceptanceCriteria": [
-        "Hero section occupies full viewport height",
-        "Text animates in smoothly on page load",
-        "Background has subtle gradient shift or particle animation",
-        "Button has magnetic hover effect that follows cursor"
+        "Keyboard listener is attached globally when user is authenticated and inside the app",
+        "Ctrl + Q navigates to /admin route",
+        "Shortcut does not work on landing page or during authentication screens",
+        "Shortcut is blocked when focus is on input, textarea, or contenteditable elements",
+        "Browser default behavior for Ctrl + Q is prevented if necessary"
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Implement minimal transparent navigation bar that smoothly hides and reveals on scroll",
+      "id": "REQ-71",
+      "text": "Configure keyboard shortcut to navigate silently to /admin for Admin and SuperAdmin users without any toast notifications, confirmations, or visual feedback, maintaining smooth professional user experience",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Navigation: Minimal",
-          "Transparent background",
-          "Smooth hide/reveal on scroll"
+          "Navigate silently. When Admin/SuperAdmin presses Ctrl + Q: Immediately navigate to /admin, No toast, No visible hint, No confirmation popup"
         ]
       },
       "acceptanceCriteria": [
-        "Navigation has transparent background",
-        "Navigation smoothly hides when scrolling down",
-        "Navigation reveals when scrolling up"
+        "Admin and SuperAdmin users navigate directly to /admin without any visual feedback",
+        "No toast notifications appear for authorized users",
+        "Navigation is immediate and smooth",
+        "Premium silent navigation experience maintained"
       ]
     },
     {
-      "id": "REQ-3",
-      "text": "Create smooth cinematic scroll experience with section snap scrolling, where each section (AI Medical Intelligence, Real-Time Device Monitoring, Doctor Alert System, Secure & Verified Professionals, Call to Action) transitions with fade + slide animations, layered depth movement, and subtle parallax effects",
-      "target": "frontend",
+      "id": "REQ-72",
+      "text": "For Patient or Doctor users pressing Ctrl + Q, navigate to /admin route, allow backend to validate role and deny access, then redirect unauthorized users to their appropriate dashboard (patient-home or doctor-home) with 'Access Denied.' toast notification displayed using red destructive styling",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Smooth cinematic scroll transitions",
-          "Each section transitions smoothly with: Fade + slide animations, Layered depth movement, Subtle parallax",
-          "Section snap scrolling",
-          "Every section must feel like a new 'scene'"
+          "If Patient or Doctor presses Ctrl + Q: Navigate to /admin, Backend checks role, If unauthorized: Redirect to dashboard, Show toast: 'Access Denied.'",
+          "Clear feedback, No confusion, Secure and transparent, Avoids mysterious behavior"
         ]
       },
       "acceptanceCriteria": [
-        "Five distinct sections scroll smoothly with snap behavior",
-        "Each section has fade and slide-in animations",
-        "Parallax depth effects are applied to background elements",
-        "Transitions feel cinematic and professional"
+        "Patient and Doctor users can trigger Ctrl + Q shortcut",
+        "Navigation to /admin occurs first",
+        "Backend role validation executes on /admin route access",
+        "Unauthorized users are redirected to their appropriate dashboard",
+        "'Access Denied.' toast appears with red destructive styling",
+        "Backend determines access authority, not frontend"
       ]
     },
     {
-      "id": "REQ-4",
-      "text": "Redesign patient dashboard with dark immersive background, floating glass panels with soft glow edges and depth shadows, logo positioned left, profile and device status right, large animated health status card in center, and two floating action panels for 'Book Appointment' and 'Health Analysis'",
+      "id": "REQ-73",
+      "text": "Remove all visible Admin navigation links from Header component and any sidebar navigation for all user roles including SuperAdmin, Admin, Doctor, and Patient, ensuring admin dashboard access is only available via direct URL /admin or Ctrl + Q keyboard shortcut",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Dark immersive background",
-          "Floating glass panels",
-          "Soft glow edges",
-          "Depth shadows",
-          "Large animated health status card",
-          "Two floating action panels: Book Appointment, Health Analysis"
+          "Remove the Admin link entirely for everyone. That includes: SuperAdmin, Admin, Doctor, Patient",
+          "No visible Admin link anywhere in header or sidebar",
+          "Admin access must only be available via: Direct URL (/admin), Ctrl + Q shortcut"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard uses dark charcoal/midnight blue background",
-        "All panels have glass morphism styling with glowing edges",
-        "Health status card animates on load",
-        "Two action panels are clearly visible and styled as floating cards"
+        "Header component does not display Admin link for any user role",
+        "Sidebar navigation (if present) does not show Admin section",
+        "Admin dashboard remains accessible via /admin URL and Ctrl + Q shortcut",
+        "Cleaner UI with reduced navigation clutter",
+        "Clear separation between governance layer and user dashboards"
       ]
     },
     {
-      "id": "REQ-5",
-      "text": "Add a glowing circular Help Desk button in bottom-right of patient dashboard with soft pulse animation that opens a smooth slide-in glass UI panel featuring multi-step progress indicator, animated result cards with urgency color-coded glow, and an expanding map section with smooth animation",
+      "id": "REQ-74",
+      "text": "Ensure keyboard shortcut implementation uses smooth route transition animations consistent with the existing light medical theme design system, maintaining calm professional aesthetics with ease-in-out timing and no jarring movements",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Glowing circular Help Desk button",
-          "Soft pulse animation",
-          "Slides in smoothly",
-          "Glass UI",
-          "Multi-step progress indicator",
-          "Animated result cards",
-          "Urgency color-coded glow",
-          "Map section appears with smooth expand animation"
+          "Prevent default browser behavior if necessary. Smooth route transition. No visible indicator that shortcut exists. Maintain premium, clean UI experience."
         ]
       },
       "acceptanceCriteria": [
-        "Help Desk button glows and pulses in bottom-right corner",
-        "Panel slides in smoothly when button is clicked",
-        "Panel has glass morphism styling",
-        "Multi-step progress indicator shows current step",
-        "Result cards animate in and have urgency-based colored glows",
-        "Map section expands with smooth animation when triggered"
+        "Route transitions are smooth and use ease-in-out timing",
+        "Navigation matches existing page transition animations",
+        "No jarring movements or aggressive effects",
+        "Premium clean UI experience maintained",
+        "Consistent with light medical theme design system"
       ]
     },
     {
-      "id": "REQ-6",
-      "text": "Redesign doctor dashboard with mission control aesthetic: slim vertical navigation on left, main area displaying grid of live patient cards with dark glass styling, glow edges, animated live vitals numbers, and mini line chart animations",
+      "id": "REQ-75",
+      "text": "Implement keyboard shortcut with no visible indicators or hints of its existence in the UI, maintaining stealthy access approach where shortcut functionality is not advertised to users through tooltips, help text, or any visual cues",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-caffeine-prompt"
+          "msg-final"
         ],
         "quotes": [
-          "Left slim vertical navigation",
-          "Main area: grid of live patient cards",
-          "Dark glass with glow edges",
-          "Animated live vitals numbers",
-          "Mini line chart animations"
+          "No visible indicator that shortcut exists",
+          "Clean, Secure, Stealthy, Architecturally correct, Hospital-safe"
         ]
       },
       "acceptanceCriteria": [
-        "Slim vertical navigation bar positioned on left side",
-        "Patient cards arranged in responsive grid",
-        "Cards have dark glass styling with glowing edges",
-        "Vital signs numbers animate when updated",
-        "Mini charts show animated vital trends"
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Implement critical patient alert system in doctor dashboard where critical patients display subtle red glow pulse on their card, and an alert banner slides in smoothly from top with smooth notification animation",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-caffeine-prompt"
-        ],
-        "quotes": [
-          "Critical patient: Subtle red glow pulse",
-          "Alert banner slides from top",
-          "Smooth notification animation"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Critical patient cards have pulsing red glow effect",
-        "Alert banner slides smoothly from top when critical condition detected",
-        "Alert animation is smooth and professional"
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Implement comprehensive design system with deep charcoal/midnight blue background, soft electric blue accents, subtle glass transparency layers, clean white typography, large bold headlines, thin elegant body font, generous spacing, and editorial style layout",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-caffeine-prompt"
-        ],
-        "quotes": [
-          "Deep charcoal / midnight blue background",
-          "Soft electric blue accents",
-          "Subtle glass transparency layers",
-          "Clean white typography",
-          "Large bold headlines",
-          "Thin elegant body font",
-          "Generous spacing",
-          "Editorial style layout"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All pages use charcoal/midnight blue as base color",
-        "Electric blue is used consistently for accents and highlights",
-        "Glass morphism applied to panels and cards",
-        "Typography uses large bold headlines and thin body text",
-        "Layout has generous spacing between elements"
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Add micro-interactions throughout the application including smooth page transitions, magnetic button hover effects, subtle scaling on hover, scroll-based fade-ins, animated counters, glass morphism layers, and soft shadow depth",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-caffeine-prompt"
-        ],
-        "quotes": [
-          "Smooth page transitions",
-          "Magnetic button hover",
-          "Subtle scaling on hover",
-          "Scroll-based fade-ins",
-          "Animated counters",
-          "Glass morphism layers",
-          "Soft shadow depth"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All page transitions are smooth and animated",
-        "Buttons have magnetic hover effect that follows cursor",
-        "Elements scale subtly on hover",
-        "Elements fade in as they enter viewport during scroll",
-        "Numeric values animate when changing",
-        "All cards and panels use glass morphism styling"
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "text": "Create dark mode visual map mockup with glowing doctor markers, smooth zoom transitions, and floating info cards for the Help Desk and hospital locator features",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-caffeine-prompt"
-        ],
-        "quotes": [
-          "Dark mode map",
-          "Glowing doctor markers",
-          "Smooth zoom transitions",
-          "Floating info cards"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Map has dark theme consistent with overall design",
-        "Doctor/facility markers glow with electric blue accent",
-        "Zoom transitions are smooth and cinematic",
-        "Info cards float above map with glass morphism styling"
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "text": "Optimize all animations to feel smooth, professional, and cinematic without being overwhelming, prioritizing polish over clutter to achieve an Awwwards-level digital experience",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-caffeine-prompt"
-        ],
-        "quotes": [
-          "Animations must feel: Smooth, Professional, Cinematic, Not overwhelming",
-          "Prioritize polish over clutter",
-          "Look like an Awwwards-level digital experience"
-        ]
-      },
-      "acceptanceCriteria": [
-        "All animations run at 60fps without jank",
-        "Animation durations are balanced and not excessive",
-        "No animation conflicts or overlapping effects",
-        "Overall experience feels premium and polished"
+        "No tooltips or help text mentioning Ctrl + Q shortcut",
+        "No visual indicators in UI revealing shortcut existence",
+        "Shortcut remains hidden discovery feature",
+        "Stealthy implementation approach maintained"
       ]
     }
   ],
   "constraints": [
-    "Do not use real-time WebSocket connections; simulate live data updates with polling or on-refresh",
-    "Do not integrate actual map services; create visual map mockups using custom graphics",
-    "Maintain single-actor backend architecture in backend/main.mo",
-    "Do not modify immutable frontend paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
-    "Use only React, Shadcn, Tailwind CSS, and React Query for frontend",
-    "Do not use blue and purple color scheme; use deep charcoal/midnight blue with electric blue accents as specified"
+    "All role validation and access control must remain server-side in backend canister",
+    "Frontend must never determine admin access permissions",
+    "Keyboard shortcut is navigation-only, does not bypass authentication or authorization",
+    "Must not interfere with existing React Query polling system or RBAC implementation",
+    "Must maintain Internet Computer platform compatibility (no WebSockets or server-side key handlers)"
   ],
   "nonGoals": [
-    "Implementing actual real-time data streaming or WebSocket connections",
-    "Integrating third-party map APIs or geolocation services",
-    "Building mobile-specific views or responsive breakpoints beyond standard desktop/tablet/mobile",
-    "Adding backend database migrations or schema changes",
-    "Creating admin-specific UI overhaul (focus is on landing, patient, and doctor experiences)"
+    "Implementing any secret access code or password system",
+    "Creating a visible admin navigation button or link",
+    "Bypassing backend role validation",
+    "Adding any frontend-based access control logic",
+    "Creating complex keyboard shortcut management system for multiple shortcuts",
+    "Adding keyboard shortcut discovery UI or help menu"
   ],
   "imageRequirements": {
-    "required": [
-      "Abstract floating particles or gradient orbs for hero section background animation, subtle and cinematic (hero-particles.dim_1920x1080.png)",
-      "Dark mode stylized map visualization with glowing markers and grid overlay for medical facility locator (map-mockup.dim_1200x800.png)",
-      "Elegant health status icon illustration with glass effect for patient dashboard center card (health-status-icon.dim_256x256.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

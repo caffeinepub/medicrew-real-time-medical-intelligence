@@ -1,17 +1,21 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
-  "summary": "MediCrew - An ultra-premium, animation-rich healthcare web experience with immersive igloo.inc-inspired UI featuring a cinematic landing page, patient dashboard with glass morphism, doctor mission control dashboard, and Help Desk system. Dark theme with electric blue accents, smooth animations, and Awwwards-level polish.",
+  "projectStateVersion": 15,
+  "summary": "MediCrew - A premium healthcare web platform combining igloo.inc's immersive depth with Apple Health's medical clarity. Features a calm, light-themed design with soft white backgrounds, medical blue accents, smooth animations, and hospital-safe aesthetics. Includes cinematic landing page, patient dashboard with floating glass panels and Help Desk system, doctor mission control dashboard with simulated live patient vitals, and unified Admin dashboard with secure backend-enforced RBAC system supporting multi-admin management, temporary admin access with automatic expiration, device management, and comprehensive audit logging.",
   "architectural_notes": [
-    "Igloo.inc-inspired UI with ultra-minimal dark premium aesthetic, glass morphism, and cinematic animations",
     "Simulated real-time data for patient vitals and live updates (no WebSocket support)",
     "Visual map mockup with custom graphics instead of real geolocation services",
     "React-based smooth animations with Tailwind styling for premium interactions",
-    "Multi-step Help Desk system with glass panel UI and urgency color-coding"
+    "Multi-step Help Desk system with glass panel UI and urgency color-coding",
+    "Hybrid UI combining igloo.inc depth with Apple Health clarity - calm, modern, hospital-safe aesthetic",
+    "Light theme with soft white backgrounds, medical blue and soft cyan accents, calm gradient overlays",
+    "Significantly toned-down animations - smooth, slow, intentional (not flashy or aggressive)",
+    "Static data displays styled to suggest real-time capability for demo purposes (no actual WebSocket streams)",
+    "Light glassmorphism used sparingly, clean layouts with large breathing spaces and elegant typography",
+    "React Query integration for aggressive data caching and stale-time configuration to minimize canister calls"
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Abstract floating particles or gradient orbs for hero section background animation, subtle and cinematic (hero-particles.dim_1920x1080.png)\n- Dark mode stylized map visualization with glowing markers and grid overlay for medical facility locator (map-mockup.dim_1200x800.png)\n- Elegant health status icon illustration with glass effect for patient dashboard center card (health-status-icon.dim_256x256.png)",
   "existing_features": [
     {
       "id": "feature-create-an-immersive-landing-page-with-full-viewport-hero-section-featuring-large-bold-text-medicrew-intelligent-healthcare-in-motion-subtle-animated-background-with-gradient-shift-or-floating-particles-smooth-fade-in-text-animations-and-a-button-with-magnetic-hover-effect",
@@ -100,32 +104,670 @@
         "REQ-11"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-replace-the-entire-dark-theme-color-system-with-a-light-medical-theme-soft-white-light-neutral-backgrounds-hsl-0-0-98-medical-blue-primary-accents-hsl-210-100-50-soft-cyan-secondary-accents-hsl-180-80-60-with-alert-colors-green-hsl-120-60-50-for-normal-amber-hsl-45-100-60-for-warning-and-soft-red-hsl-0-70-60-for-critical-states",
+      "title": "Replace the entire dark theme color system with a light medical theme: soft white/light neutral backgrounds (hsl(0 0% 98%)), medical blue primary accents (hsl(210 100% 50%)), soft cyan secondary accents (hsl(180 80% 60%)), with alert colors: green (hsl(120 60% 50%)) for normal, amber (hsl(45 100% 60%)) for warning, and soft red (hsl(0 70% 60%)) for critical states",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-significantly-reduce-animation-intensity-throughout-the-application-replace-aggressive-cinematic-animations-with-calm-slow-smooth-transitions-using-ease-in-out-timing-remove-magnetic-hover-effects-scroll-snap-and-heavy-parallax-replace-with-subtle-fade-ins-gentle-upward-motion-10-20px-max-and-soft-hover-lifts-2-4px-max",
+      "title": "Significantly reduce animation intensity throughout the application: replace aggressive cinematic animations with calm, slow, smooth transitions using ease-in-out timing; remove magnetic hover effects, scroll snap, and heavy parallax; replace with subtle fade-ins, gentle upward motion (10-20px max), and soft hover lifts (2-4px max)",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-landing-page-hero-section-with-headline-medicrew-intelligent-healthcare-in-real-time-subtext-ai-powered-health-monitoring-and-connected-medical-response-two-buttons-get-started-as-patient-and-join-as-doctor-and-a-very-subtle-animated-gradient-background-with-soft-slow-transitions",
+      "title": "Redesign landing page hero section with headline 'MediCrew — Intelligent Healthcare in Real Time', subtext 'AI-powered health monitoring and connected medical response', two buttons ('Get Started as Patient' and 'Join as Doctor'), and a very subtle animated gradient background with soft, slow transitions",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-reorganize-landing-page-scroll-sections-to-display-ai-medical-assistance-real-time-device-monitoring-doctor-alert-system-verified-medical-professionals-and-privacy-security-with-each-section-transitioning-via-calm-fade-in-and-slight-upward-motion-not-aggressive-parallax",
+      "title": "Reorganize landing page scroll sections to display: AI Medical Assistance, Real-Time Device Monitoring, Doctor Alert System, Verified Medical Professionals, and Privacy & Security, with each section transitioning via calm fade-in and slight upward motion (not aggressive parallax)",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-transform-patient-dashboard-to-light-theme-with-floating-soft-shadow-cards-on-a-light-background-top-bar-with-logo-left-and-profile-device-status-indicator-right-large-primary-health-status-card-in-center-showing-overall-health-and-device-connection-state-and-two-elegant-action-cards-below-for-book-appointment-and-health-analysis-with-subtle-lift-on-hover",
+      "title": "Transform patient dashboard to light theme with floating soft-shadow cards on a light background, top bar with logo (left) and profile + device status indicator (right), large primary health status card in center showing overall health and device connection state, and two elegant action cards below for 'Book Appointment' and 'Health Analysis' with subtle lift on hover",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-help-desk-floating-button-styling-to-soft-glow-pulse-not-aggressive-and-redesign-the-slide-in-panel-with-clean-white-card-design-not-heavy-glass-ui-showing-multi-step-flow-upload-image-describe-symptoms-ai-analysis-nearby-doctors-with-clean-white-result-cards-urgency-badges-confidence-percentages-and-smoothly-expanding-map-section",
+      "title": "Update Help Desk floating button styling to soft glow pulse (not aggressive), and redesign the slide-in panel with clean white card design (not heavy glass UI), showing multi-step flow (Upload Image → Describe Symptoms → AI Analysis → Nearby Doctors) with clean white result cards, urgency badges, confidence percentages, and smoothly expanding map section",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-doctor-dashboard-with-light-theme-slim-vertical-navigation-on-left-main-area-displaying-patient-grid-with-clean-white-cards-featuring-subtle-glow-edges-not-heavy-dark-glass-simulated-animated-vitals-numbers-styled-to-suggest-real-time-updates-and-mini-line-chart-animations-using-static-data",
+      "title": "Redesign doctor dashboard with light theme: slim vertical navigation on left, main area displaying patient grid with clean white cards featuring subtle glow edges (not heavy dark glass), simulated animated vitals numbers styled to suggest real-time updates, and mini line chart animations using static data",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-critical-patient-alert-system-styling-to-display-soft-red-border-glow-not-aggressive-flashing-on-critical-patient-cards-with-alert-banner-sliding-from-top-using-smooth-animation-and-subtle-pulse-effect-that-feels-serious-but-not-dramatic",
+      "title": "Update critical patient alert system styling to display soft red border glow (not aggressive flashing) on critical patient cards, with alert banner sliding from top using smooth animation, and subtle pulse effect that feels serious but not dramatic",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-map-design-to-light-theme-with-clean-doctor-markers-not-heavy-glow-floating-info-cards-with-soft-shadows-and-smooth-zoom-transitions-for-the-help-desk-and-hospital-locator-features",
+      "title": "Update map design to light theme with clean doctor markers (not heavy glow), floating info cards with soft shadows, and smooth zoom transitions for the Help Desk and hospital locator features",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-light-glassmorphism-sparingly-throughout-the-application-subtle-transparent-overlays-with-soft-blur-used-only-where-depth-is-needed-avoiding-overdone-glass-effects-that-dominated-the-dark-theme",
+      "title": "Apply light glassmorphism sparingly throughout the application: subtle transparent overlays with soft blur, used only where depth is needed, avoiding overdone glass effects that dominated the dark theme",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-typography-system-to-use-large-breathing-spaces-elegant-clean-fonts-and-ensure-generous-spacing-between-sections-and-elements-to-achieve-apple-health-style-clarity-and-readability",
+      "title": "Update typography system to use large breathing spaces, elegant clean fonts, and ensure generous spacing between sections and elements to achieve Apple Health-style clarity and readability",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-micro-interactions-follow-the-calm-animation-rules-button-hover-lifts-are-subtle-2-4px-shadows-deepen-softly-on-hover-page-transitions-fade-smoothly-vitals-counters-animate-with-slow-ease-in-out-and-skeleton-loading-states-appear-gently-without-jarring-movements",
+      "title": "Ensure all micro-interactions follow the calm animation rules: button hover lifts are subtle (2-4px), shadows deepen softly on hover, page transitions fade smoothly, vitals counters animate with slow ease-in-out, and skeleton loading states appear gently without jarring movements",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-react-query-with-aggressive-cache-configuration-for-all-data-fetching-set-staletime-to-5-minutes-for-patient-vitals-and-symptoms-data-3-minutes-for-appointment-data-2-minutes-for-doctor-verification-status-and-1-minute-for-critical-alerts-and-help-desk-cases-to-minimize-canister-calls-while-keeping-data-reasonably-fresh",
+      "title": "Integrate React Query with aggressive cache configuration for all data fetching: set staleTime to 5 minutes for patient vitals and symptoms data, 3 minutes for appointment data, 2 minutes for doctor verification status, and 1 minute for critical alerts and help desk cases to minimize canister calls while keeping data reasonably fresh",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-manual-refresh-button-in-the-header-component-that-triggers-refetch-of-all-active-queries-and-displays-a-subtle-refreshing-indicator-during-the-refresh-process",
+      "title": "Add manual refresh button in the Header component that triggers refetch of all active queries and displays a subtle 'Refreshing...' indicator during the refresh process",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-manual-refresh-buttons-to-patienthome-dashboard-for-health-status-data-and-device-connection-status-and-to-doctorhome-dashboard-for-patient-list-and-notifications-with-smooth-loading-transitions",
+      "title": "Add manual refresh buttons to PatientHome dashboard for health status data and device connection status, and to DoctorHome dashboard for patient list and notifications with smooth loading transitions",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-last-updated-timestamps-on-all-data-cards-including-patient-vitals-cards-appointment-cards-doctor-verification-status-patient-list-cards-and-help-desk-case-cards-using-relative-time-format-e-g-updated-2-minutes-ago",
+      "title": "Display 'Last updated' timestamps on all data cards including patient vitals cards, appointment cards, doctor verification status, patient list cards, and help desk case cards using relative time format (e.g., 'Updated 2 minutes ago')",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-optimistic-ui-updates-for-appointment-booking-in-appointmentbooking-component-immediately-show-appointment-as-pending-in-patient-dashboard-after-submission-then-confirm-with-backend-response",
+      "title": "Implement optimistic UI updates for appointment booking in AppointmentBooking component: immediately show appointment as 'Pending' in patient dashboard after submission, then confirm with backend response",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-optimistic-ui-updates-for-doctor-approval-actions-when-doctor-approves-or-rejects-an-appointment-in-doctorhome-immediately-update-the-ui-state-and-show-success-toast-then-confirm-with-background-query-refetch",
+      "title": "Implement optimistic UI updates for doctor approval actions: when doctor approves or rejects an appointment in DoctorHome, immediately update the UI state and show success toast, then confirm with background query refetch",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-optimistic-ui-updates-for-addpatient-component-immediately-show-patient-in-doctor-s-patient-list-after-adding-display-syncing-badge-on-the-patient-card-then-confirm-with-backend-response-and-update-to-active-status",
+      "title": "Implement optimistic UI updates for AddPatient component: immediately show patient in doctor's patient list after adding, display 'Syncing...' badge on the patient card, then confirm with backend response and update to 'Active' status",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-optimistic-ui-updates-for-doctor-verification-status-when-admin-approves-a-doctor-in-approvalmanagement-immediately-update-the-doctor-s-status-in-ui-to-approved-with-green-badge-then-confirm-with-background-query-refetch",
+      "title": "Implement optimistic UI updates for doctor verification status: when admin approves a doctor in ApprovalManagement, immediately update the doctor's status in UI to 'Approved' with green badge, then confirm with background query refetch",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-subtle-syncing-text-indicator-with-soft-pulse-animation-that-appears-in-the-top-right-corner-of-data-cards-during-background-refetch-operations-then-fades-out-smoothly-when-data-is-confirmed",
+      "title": "Add subtle 'Syncing...' text indicator with soft pulse animation that appears in the top-right corner of data cards during background refetch operations, then fades out smoothly when data is confirmed",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-smooth-fade-transitions-when-new-data-loads-after-manual-or-background-refresh-data-cards-should-fade-from-90-to-100-opacity-over-300ms-with-ease-in-out-timing-to-signal-data-update-without-jarring-the-user",
+      "title": "Implement smooth fade transitions when new data loads after manual or background refresh: data cards should fade from 90% to 100% opacity over 300ms with ease-in-out timing to signal data update without jarring the user",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-loading-spinners-with-skeleton-loading-states-for-data-cards-use-subtle-gray-rectangular-placeholders-with-soft-pulse-animation-that-match-the-dimensions-of-patient-cards-vitals-data-appointment-cards-and-notification-items",
+      "title": "Replace all loading spinners with skeleton loading states for data cards: use subtle gray rectangular placeholders with soft pulse animation that match the dimensions of patient cards, vitals data, appointment cards, and notification items",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-toast-notifications-using-the-existing-toast-system-for-all-successful-user-actions-appointment-booked-patient-added-appointment-approved-rejected-doctor-verified-vitals-logged-symptoms-logged-with-green-success-styling-and-auto-dismiss-after-3-seconds",
+      "title": "Add toast notifications using the existing toast system for all successful user actions: appointment booked, patient added, appointment approved/rejected, doctor verified, vitals logged, symptoms logged with green success styling and auto-dismiss after 3 seconds",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-visual-staleness-indicators-on-data-cards-that-have-not-been-refreshed-in-over-10-minutes-display-a-subtle-amber-data-may-be-outdated-badge-in-the-corner-of-the-card-with-a-manual-refresh-icon-button",
+      "title": "Add visual staleness indicators on data cards that have not been refreshed in over 10 minutes: display a subtle amber 'Data may be outdated' badge in the corner of the card with a manual refresh icon button",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-optimistic-updates-handle-error-cases-gracefully-if-backend-mutation-fails-smoothly-revert-the-ui-to-previous-state-with-a-slide-animation-display-error-toast-with-reason-and-mark-the-affected-card-with-a-subtle-red-border-for-2-seconds",
+      "title": "Ensure all optimistic updates handle error cases gracefully: if backend mutation fails, smoothly revert the UI to previous state with a slide animation, display error toast with reason, and mark the affected card with a subtle red border for 2 seconds",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-all-unsupported-internet-computer-features-from-the-codebase-eliminate-any-websocket-connections-socket-io-usage-server-sent-events-sse-express-server-instances-app-listen-calls-node-only-apis-fs-net-http-server-modules-and-long-running-background-processes-to-ensure-full-ic-platform-compatibility",
+      "title": "Remove all unsupported Internet Computer features from the codebase: eliminate any WebSocket connections, Socket.io usage, Server-Sent Events (SSE), Express server instances, app.listen() calls, Node-only APIs (fs, net, http server modules), and long-running background processes to ensure full IC platform compatibility",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-real-time-functionality-with-react-query-polling-implement-high-priority-event-polling-every-3-5-seconds-critical-patient-alerts-vital-signs-updates-medium-priority-polling-every-10-15-seconds-appointment-status-doctor-availability-pause-all-polling-when-browser-tab-becomes-inactive-and-resume-polling-when-tab-becomes-active-again",
+      "title": "Replace all real-time functionality with React Query polling: implement high priority event polling every 3-5 seconds (critical patient alerts, vital signs updates), medium priority polling every 10-15 seconds (appointment status, doctor availability), pause all polling when browser tab becomes inactive, and resume polling when tab becomes active again",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-all-build-issues-to-ensure-clean-deployment-remove-all-unused-npm-dependencies-from-package-json-validate-all-import-statements-resolve-correctly-fix-all-typescript-compilation-errors-and-type-mismatches-remove-any-server-side-only-packages-incompatible-with-browser-bundling-optimize-bundle-size-to-reduce-deployment-footprint-ensure-dfx-build-and-npm-run-build-complete-without-warnings-or-errors",
+      "title": "Fix all build issues to ensure clean deployment: remove all unused npm dependencies from package.json, validate all import statements resolve correctly, fix all TypeScript compilation errors and type mismatches, remove any server-side-only packages incompatible with browser bundling, optimize bundle size to reduce deployment footprint, ensure dfx build and npm run build complete without warnings or errors",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-environment-variable-safeguards-throughout-the-application-verify-all-required-environment-variables-exist-at-build-runtime-implement-fallback-mock-mode-functionality-when-api-keys-are-missing-e-g-mock-hospital-data-mock-diagnosis-results-handle-undefined-environment-variables-gracefully-with-informative-console-warnings-ensure-application-remains-functional-in-development-without-all-production-api-keys",
+      "title": "Add environment variable safeguards throughout the application: verify all required environment variables exist at build/runtime, implement fallback mock mode functionality when API keys are missing (e.g., mock hospital data, mock diagnosis results), handle undefined environment variables gracefully with informative console warnings, ensure application remains functional in development without all production API keys",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-safe-mode-deployment-strategy-as-fallback-create-a-minimal-stable-build-configuration-that-includes-only-authentication-via-internet-identity-and-basic-patient-doctor-dashboards-with-static-data-ensure-this-minimal-build-deploys-successfully-to-internet-computer-after-confirming-deployment-success-incrementally-add-features-vitals-logging-appointment-booking-help-desk-hospital-locator-one-module-at-a-time-with-deployment-verification-between-additions",
+      "title": "Implement safe mode deployment strategy as fallback: create a minimal stable build configuration that includes only authentication via Internet Identity and basic patient/doctor dashboards with static data, ensure this minimal build deploys successfully to Internet Computer, after confirming deployment success, incrementally add features (vitals logging, appointment booking, help desk, hospital locator) one module at a time with deployment verification between additions",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-refactored-application-retains-all-premium-ui-features-preserve-light-medical-theme-with-soft-white-backgrounds-and-medical-blue-accents-maintain-all-calm-smooth-animations-with-ease-in-out-timing-keep-floating-glass-panel-aesthetics-with-soft-shadows-retain-react-query-caching-system-with-optimistic-updates-preserve-skeleton-loading-states-and-toast-notifications-ensure-all-core-features-vitals-tracking-appointment-booking-help-desk-doctor-dashboard-hospital-locator-remain-fully-functional-after-ic-compatibility-refactor",
+      "title": "Ensure the refactored application retains all premium UI features: preserve light medical theme with soft white backgrounds and medical blue accents, maintain all calm smooth animations with ease-in-out timing, keep floating glass panel aesthetics with soft shadows, retain React Query caching system with optimistic updates, preserve skeleton loading states and toast notifications, ensure all core features (vitals tracking, appointment booking, help desk, doctor dashboard, hospital locator) remain fully functional after IC compatibility refactor",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-unified-admin-dashboard-component-at-admin-route-that-consolidates-all-system-level-controls-implement-admindashboard-tsx-with-sidebar-navigation-showing-sections-users-doctors-devices-appointments-admin-management-superadmin-only-and-audit-logs-superadmin-only-merge-existing-doctor-approval-functionality-from-approvalmanagement-into-the-users-doctors-sections-ensure-route-is-protected-and-validates-user-has-admin-or-superadmin-role-via-backend-getuserrole-query",
+      "title": "Create unified Admin dashboard component at /admin route that consolidates all system-level controls: implement AdminDashboard.tsx with sidebar navigation showing sections Users, Doctors, Devices, Appointments, Admin Management (SuperAdmin only), and Audit Logs (SuperAdmin only), merge existing doctor approval functionality from ApprovalManagement into the Users/Doctors sections, ensure route is protected and validates user has Admin or SuperAdmin role via backend getUserRole query",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-users-management-section-in-admin-dashboard-display-paginated-table-of-all-users-showing-email-role-status-roleexpiresat-if-temporary-admin-add-filters-for-role-type-all-patient-doctor-admin-superadmin-add-search-by-email-functionality-show-temporary-admin-expires-in-x-days-badge-for-users-with-roleexpiresat-add-actions-column-with-buttons-for-superadmin-to-promote-to-admin-grant-temporary-access-or-revoke-admin-access",
+      "title": "Implement Users management section in Admin dashboard: display paginated table of all users showing email, role, status, roleExpiresAt (if temporary admin), add filters for role type (All, Patient, Doctor, Admin, SuperAdmin), add search by email functionality, show 'Temporary Admin — Expires in X days' badge for users with roleExpiresAt, add actions column with buttons for SuperAdmin to promote to admin, grant temporary access, or revoke admin access",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-doctors-management-section-in-admin-dashboard-integrate-existing-doctor-approval-functionality-display-grid-table-of-all-doctors-showing-name-specialty-verification-status-pending-approved-rejected-approval-date-add-filter-by-verification-status-show-doctor-credentials-when-available-superadmin-admin-can-approve-or-reject-pending-doctors-with-confirmation-modal-show-success-toast-after-approval-rejection-with-optimistic-ui-update",
+      "title": "Implement Doctors management section in Admin dashboard: integrate existing doctor approval functionality, display grid/table of all doctors showing name, specialty, verification status (Pending, Approved, Rejected), approval date, add filter by verification status, show doctor credentials when available, SuperAdmin/Admin can approve or reject pending doctors with confirmation modal, show success toast after approval/rejection with optimistic UI update",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-devices-management-section-in-admin-dashboard-display-table-of-all-iot-health-monitoring-devices-showing-device-id-linked-patient-email-id-or-unlinked-status-active-inactive-last-sync-timestamp-in-relative-format-add-filters-by-status-and-link-state-superadmin-admin-can-activate-deactivate-device-with-toggle-reassign-device-to-different-patient-via-modal-with-patient-selector-reset-device-to-unlink-from-current-patient-with-confirmation-show-success-toasts-for-all-device-actions",
+      "title": "Implement Devices management section in Admin dashboard: display table of all IoT health monitoring devices showing Device ID, Linked Patient email/ID (or 'Unlinked'), Status (Active/Inactive), Last Sync timestamp in relative format, add filters by status and link state, SuperAdmin/Admin can activate/deactivate device with toggle, reassign device to different patient via modal with patient selector, reset device to unlink from current patient with confirmation, show success toasts for all device actions",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-appointments-management-section-in-admin-dashboard-display-table-of-all-appointments-across-the-system-showing-patient-email-doctor-name-date-time-status-pending-confirmed-cancelled-superadmin-admin-can-view-appointment-details-override-appointment-status-with-reason-field-cancel-appointments-on-behalf-of-users-with-confirmation-modal-add-filters-by-status-and-date-range-show-statistics-cards-at-top-total-appointments-pending-confirmed-cancelled-with-animated-counters",
+      "title": "Implement Appointments management section in Admin dashboard: display table of all appointments across the system showing patient email, doctor name, date/time, status (Pending, Confirmed, Cancelled), SuperAdmin/Admin can view appointment details, override appointment status with reason field, cancel appointments on behalf of users with confirmation modal, add filters by status and date range, show statistics cards at top: Total Appointments, Pending, Confirmed, Cancelled with animated counters",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-admin-management-section-in-admin-dashboard-superadmin-only-display-table-of-all-admin-and-superadmin-users-showing-email-role-type-admin-superadmin-assignment-date-expiration-date-for-temporary-admins-days-remaining-add-grant-temporary-admin-button-that-opens-modal-with-user-selector-duration-picker-1h-24h-7d-custom-and-expiration-date-time-selector-add-extend-expiry-button-for-temporary-admins-that-opens-modal-to-select-new-expiration-add-revoke-admin-button-with-confirmation-modal-that-reverts-admin-to-previous-role-add-promote-to-permanent-admin-button-that-removes-expiration-and-makes-admin-permanent",
+      "title": "Implement Admin Management section in Admin dashboard (SuperAdmin only): display table of all Admin and SuperAdmin users showing email, role type (Admin/SuperAdmin), assignment date, expiration date (for temporary admins), days remaining, add 'Grant Temporary Admin' button that opens modal with user selector, duration picker (1h, 24h, 7d, Custom), and expiration date/time selector, add 'Extend Expiry' button for temporary admins that opens modal to select new expiration, add 'Revoke Admin' button with confirmation modal that reverts admin to previous role, add 'Promote to Permanent Admin' button that removes expiration and makes admin permanent",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-audit-logs-section-in-admin-dashboard-superadmin-only-display-paginated-table-of-all-audit-log-entries-showing-timestamp-performed-by-email-action-type-target-user-if-applicable-metadata-details-add-filters-by-action-type-all-grant-admin-revoke-admin-extend-admin-approve-doctor-suspend-user-reassign-device-add-date-range-filter-add-search-by-performer-email-or-target-email-display-logs-in-reverse-chronological-order-newest-first-make-audit-logs-read-only-with-no-edit-or-delete-actions-add-export-functionality-to-download-audit-logs-as-csv",
+      "title": "Implement Audit Logs section in Admin dashboard (SuperAdmin only): display paginated table of all audit log entries showing timestamp, performed by (email), action type, target user (if applicable), metadata/details, add filters by action type (All, Grant Admin, Revoke Admin, Extend Admin, Approve Doctor, Suspend User, Reassign Device), add date range filter, add search by performer email or target email, display logs in reverse chronological order (newest first), make audit logs read-only with no edit or delete actions, add export functionality to download audit logs as CSV",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-app-tsx-routing-logic-to-fetch-user-role-from-backend-after-authentication-call-getuserrole-query-on-component-mount-when-user-is-authenticated-store-role-in-state-add-route-protection-logic-that-redirects-to-admin-for-admin-superadmin-users-doctor-home-for-doctor-users-patient-home-for-patient-users-handle-automatic-role-reversion-by-polling-getuserrole-every-30-seconds-to-detect-admin-expiration-show-toast-notification-admin-access-expired-redirecting-when-roleexpiresat-expires-and-redirect-to-appropriate-dashboard",
+      "title": "Update App.tsx routing logic to fetch user role from backend after authentication: call getUserRole query on component mount when user is authenticated, store role in state, add route protection logic that redirects to /admin for Admin/SuperAdmin users, /doctor-home for Doctor users, /patient-home for Patient users, handle automatic role reversion by polling getUserRole every 30 seconds to detect admin expiration, show toast notification 'Admin access expired. Redirecting...' when roleExpiresAt expires and redirect to appropriate dashboard",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-usequeries-ts-hook-to-add-react-query-hooks-for-all-rbac-and-device-management-backend-functions-usegetuserrole-poll-every-30s-when-logged-in-usegetalladmins-superadmin-only-poll-every-15s-usepromotetoadmin-mutation-usegranttemporaryadmin-mutation-useextendadminexpiry-mutation-userevokeadmin-mutation-usegetalldevices-admin-only-poll-every-10s-uselinkdevice-mutation-useunlinkdevice-mutation-useactivatedevice-mutation-usedeactivatedevice-mutation-usegetauditlogs-superadmin-only-no-polling-configure-all-mutations-with-optimistic-updates-and-success-toasts",
+      "title": "Update useQueries.ts hook to add React Query hooks for all RBAC and device management backend functions: useGetUserRole (poll every 30s when logged in), useGetAllAdmins (SuperAdmin only, poll every 15s), usePromoteToAdmin mutation, useGrantTemporaryAdmin mutation, useExtendAdminExpiry mutation, useRevokeAdmin mutation, useGetAllDevices (Admin only, poll every 10s), useLinkDevice mutation, useUnlinkDevice mutation, useActivateDevice mutation, useDeactivateDevice mutation, useGetAuditLogs (SuperAdmin only, no polling), configure all mutations with optimistic updates and success toasts",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-header-component-to-display-role-badge-and-expiration-warning-fetch-user-role-using-usegetuserrole-hook-display-role-badge-patient-doctor-admin-superadmin-next-to-profile-icon-with-appropriate-color-styling-for-temporary-admins-show-temporary-admin-expires-in-x-days-with-amber-badge-when-less-than-3-days-remaining-add-countdown-timer-that-updates-every-minute-showing-time-remaining-for-temporary-admin-access-ensure-header-updates-automatically-when-role-changes-via-polling",
+      "title": "Update Header component to display role badge and expiration warning: fetch user role using useGetUserRole hook, display role badge (Patient/Doctor/Admin/SuperAdmin) next to profile icon with appropriate color styling, for temporary admins show 'Temporary Admin — Expires in X days' with amber badge when less than 3 days remaining, add countdown timer that updates every minute showing time remaining for temporary admin access, ensure header updates automatically when role changes via polling",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-admin-management-and-device-management-actions-implement-optimistic-ui-updates-when-superadmin-grants-temporary-admin-immediately-show-user-in-admin-list-with-syncing-badge-before-backend-confirmation-when-revoking-admin-immediately-update-ui-to-show-reverted-role-before-backend-confirmation-when-activating-deactivating-device-immediately-update-status-badge-before-backend-confirmation-when-reassigning-device-immediately-update-linked-patient-before-backend-confirmation-on-mutation-error-smoothly-revert-ui-to-previous-state-with-slide-animation-and-show-error-toast-with-red-border-on-affected-card-for-2-seconds",
+      "title": "Ensure all admin management and device management actions implement optimistic UI updates: when SuperAdmin grants temporary admin, immediately show user in admin list with 'Syncing...' badge before backend confirmation, when revoking admin immediately update UI to show reverted role before backend confirmation, when activating/deactivating device immediately update status badge before backend confirmation, when reassigning device immediately update linked patient before backend confirmation, on mutation error smoothly revert UI to previous state with slide animation and show error toast with red border on affected card for 2 seconds",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-doctordashboard-and-doctorhome-components-to-remove-any-admin-like-controls-ensure-doctor-dashboard-only-displays-medical-features-patient-list-vitals-notifications-appointments-remove-any-system-control-features-that-belong-in-admin-dashboard-verify-clear-separation-where-doctor-dashboard-medical-features-only-and-admin-dashboard-governance-system-control-ensure-doctor-users-cannot-access-admin-route-and-are-redirected-if-they-attempt-to-access-it",
+      "title": "Update DoctorDashboard and DoctorHome components to remove any admin-like controls: ensure doctor dashboard only displays medical features (patient list, vitals, notifications, appointments), remove any system control features that belong in admin dashboard, verify clear separation where doctor dashboard = medical features only and admin dashboard = governance + system control, ensure doctor users cannot access /admin route and are redirected if they attempt to access it",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-comprehensive-toast-notifications-for-all-rbac-and-device-management-actions-successful-admin-promotion-shows-user-promoted-to-admin-temporary-admin-grant-shows-temporary-admin-access-granted-expires-in-x-days-admin-revocation-shows-admin-access-revoked-admin-expiry-extension-shows-admin-expiry-extended-to-date-device-activation-shows-device-activated-successfully-device-deactivation-shows-device-deactivated-device-reassignment-shows-device-reassigned-to-patient-email-device-reset-shows-device-unlinked-successfully-all-toasts-use-green-success-styling-with-auto-dismiss-after-3-seconds-all-error-toasts-use-red-destructive-styling-with-manual-dismiss-option",
+      "title": "Add comprehensive toast notifications for all RBAC and device management actions: successful admin promotion shows 'User promoted to Admin', temporary admin grant shows 'Temporary admin access granted (expires in X days)', admin revocation shows 'Admin access revoked', admin expiry extension shows 'Admin expiry extended to [date]', device activation shows 'Device activated successfully', device deactivation shows 'Device deactivated', device reassignment shows 'Device reassigned to [patient email]', device reset shows 'Device unlinked successfully', all toasts use green success styling with auto-dismiss after 3 seconds, all error toasts use red destructive styling with manual dismiss option",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-skeleton-loading-states-for-all-admin-dashboard-sections-users-table-shows-5-skeleton-rows-with-animated-pulse-during-initial-load-doctors-section-shows-skeleton-grid-cards-with-pulse-animation-devices-table-shows-skeleton-rows-matching-device-table-structure-appointments-table-shows-skeleton-rows-with-pulse-animation-admin-management-shows-skeleton-table-rows-audit-logs-shows-skeleton-log-entries-all-skeletons-use-subtle-gray-color-matching-light-medical-theme-with-soft-pulse-animation-over-1-5-seconds-skeleton-dimensions-match-actual-content-dimensions",
+      "title": "Implement skeleton loading states for all admin dashboard sections: Users table shows 5 skeleton rows with animated pulse during initial load, Doctors section shows skeleton grid cards with pulse animation, Devices table shows skeleton rows matching device table structure, Appointments table shows skeleton rows with pulse animation, Admin Management shows skeleton table rows, Audit Logs shows skeleton log entries, all skeletons use subtle gray color matching light medical theme with soft pulse animation over 1.5 seconds, skeleton dimensions match actual content dimensions",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-last-updated-timestamps-to-all-admin-dashboard-data-sections-display-relative-timestamp-format-updated-2-minutes-ago-in-top-right-corner-of-each-section-users-doctors-devices-appointments-admin-management-add-manual-refresh-icon-button-next-to-timestamp-that-triggers-refetch-of-section-data-and-shows-refreshing-indicator-during-refetch-display-data-may-be-outdated-amber-badge-with-refresh-icon-when-data-has-not-been-refreshed-in-over-10-minutes-ensure-timestamps-update-automatically-as-data-refreshes-via-background-polling",
+      "title": "Add 'Last updated' timestamps to all admin dashboard data sections: display relative timestamp format ('Updated 2 minutes ago') in top-right corner of each section (Users, Doctors, Devices, Appointments, Admin Management), add manual refresh icon button next to timestamp that triggers refetch of section data and shows 'Refreshing...' indicator during refetch, display 'Data may be outdated' amber badge with refresh icon when data has not been refreshed in over 10 minutes, ensure timestamps update automatically as data refreshes via background polling",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-admin-dashboard-components-follow-the-established-light-medical-theme-design-system-use-soft-white-backgrounds-hsl-0-0-98-medical-blue-primary-accents-hsl-210-100-50-for-buttons-and-badges-soft-cyan-secondary-accents-hsl-180-80-60-for-hover-states-implement-floating-cards-with-soft-shadows-0-2px-8px-rgba-0-0-0-0-08-use-calm-smooth-animations-with-ease-in-out-timing-implement-subtle-hover-lifts-2-4px-on-interactive-elements-ensure-generous-spacing-between-sections-and-elements-for-apple-health-style-clarity-use-clean-sans-serif-typography-with-large-breathing-spaces",
+      "title": "Ensure all admin dashboard components follow the established light medical theme design system: use soft white backgrounds (hsl(0 0% 98%)), medical blue primary accents (hsl(210 100% 50%)) for buttons and badges, soft cyan secondary accents (hsl(180 80% 60%)) for hover states, implement floating cards with soft shadows (0 2px 8px rgba(0,0,0,0.08)), use calm smooth animations with ease-in-out timing, implement subtle hover lifts (2-4px) on interactive elements, ensure generous spacing between sections and elements for Apple Health-style clarity, use clean sans-serif typography with large breathing spaces",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-global-keyboard-listener-for-ctrl-q-shortcut-that-navigates-to-admin-route-only-active-when-user-is-authenticated-and-inside-the-application-not-on-landing-page-or-authentication-screens-blocked-when-active-element-is-an-input-field-textarea-or-contenteditable-element-to-prevent-accidental-triggers-during-typing",
+      "title": "Implement global keyboard listener for Ctrl + Q shortcut that navigates to /admin route, only active when user is authenticated and inside the application (not on landing page or authentication screens), blocked when active element is an input field, textarea, or contenteditable element to prevent accidental triggers during typing",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-keyboard-shortcut-to-navigate-silently-to-admin-for-admin-and-superadmin-users-without-any-toast-notifications-confirmations-or-visual-feedback-maintaining-smooth-professional-user-experience",
+      "title": "Configure keyboard shortcut to navigate silently to /admin for Admin and SuperAdmin users without any toast notifications, confirmations, or visual feedback, maintaining smooth professional user experience",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-for-patient-or-doctor-users-pressing-ctrl-q-navigate-to-admin-route-allow-backend-to-validate-role-and-deny-access-then-redirect-unauthorized-users-to-their-appropriate-dashboard-patient-home-or-doctor-home-with-access-denied-toast-notification-displayed-using-red-destructive-styling",
+      "title": "For Patient or Doctor users pressing Ctrl + Q, navigate to /admin route, allow backend to validate role and deny access, then redirect unauthorized users to their appropriate dashboard (patient-home or doctor-home) with 'Access Denied.' toast notification displayed using red destructive styling",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-keyboard-shortcut-implementation-uses-smooth-route-transition-animations-consistent-with-the-existing-light-medical-theme-design-system-maintaining-calm-professional-aesthetics-with-ease-in-out-timing-and-no-jarring-movements",
+      "title": "Ensure keyboard shortcut implementation uses smooth route transition animations consistent with the existing light medical theme design system, maintaining calm professional aesthetics with ease-in-out timing and no jarring movements",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-keyboard-shortcut-with-no-visible-indicators-or-hints-of-its-existence-in-the-ui-maintaining-stealthy-access-approach-where-shortcut-functionality-is-not-advertised-to-users-through-tooltips-help-text-or-any-visual-cues",
+      "title": "Implement keyboard shortcut with no visible indicators or hints of its existence in the UI, maintaining stealthy access approach where shortcut functionality is not advertised to users through tooltips, help text, or any visual cues",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Immersive landing page with full-screen hero, cinematic animations, smooth scroll sections (AI Intelligence, Device Monitoring, Doctor Alerts, Professional Verification), parallax effects, and minimal navigation",
+      "summary": "Implement manual refresh with smart caching system using React Query for appointments, alerts, verification status, and patient data with aggressive caching and optimistic UI updates",
       "reqIds": [],
-      "status": "in_progress"
+      "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Patient dashboard with dark glass UI, floating panels, animated health status card, booking/analysis action panels, glowing Help Desk button with multi-step glass panel, urgency-coded results, and visual map mockup",
+      "summary": "Add manual refresh buttons in navigation and dashboard sections with 'Last updated' timestamps on data cards",
       "reqIds": [],
-      "status": "in_progress"
+      "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Doctor dashboard with mission control layout, slim side navigation, grid of live patient cards with simulated animated vitals and mini charts, critical patient alerts with red glow pulse animations",
+      "summary": "Implement optimistic UI updates for doctor/patient actions (approve appointment, add patient, book appointment, verify doctor) with background confirmation",
       "reqIds": [],
-      "status": "in_progress"
+      "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Premium design system with deep charcoal/midnight blue base, electric blue accents, glass morphism, magnetic hover effects, scroll-based animations, smooth transitions, and Awwwards-level polish",
+      "summary": "Add subtle 'Syncing...' indicators during background data fetches with smooth fade transitions when new data loads",
       "reqIds": [],
-      "status": "in_progress"
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement background refetch on window focus to keep data reasonably fresh with loading skeletons (not spinners) during fetches",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add toast notifications confirming successful actions with clear visual feedback showing when data might be stale",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Configure React Query to automatically refetch stale queries when browser tab becomes active (refetchOnWindowFocus: true) to keep data reasonably fresh when users return to the application",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Remove all unsupported Internet Computer features: WebSockets, Socket.io, SSE, Express server, app.listen(), Node-only APIs (fs, net, http server), and long-running background processes to ensure IC platform compatibility",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Replace all real-time functionality with React Query polling: high priority events poll every 3-5 seconds, medium priority every 10-15 seconds, pause when tab inactive, resume when active",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Fix auth flow to be IC-compatible: remove Node mail server and SMTP usage, ensure email OTP system uses IC-compatible HTTP request method, all auth logic must run via canister calls only",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Fix build issues: remove unused dependencies, ensure all imports are valid, fix TypeScript errors, remove server-side-only packages, optimize bundle size, ensure project builds without warnings or errors",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add environment variable safeguards: ensure all required environment variables exist, provide fallback mock mode if API key missing, handle undefined API keys gracefully",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Refactor backend to canister-safe structure: use only canister functions, remove custom Node server, eliminate external persistent connections and background listeners",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Implement optional safe mode deployment strategy: generate minimal stable build first (auth + dashboard only), confirm deployment success, then incrementally add features",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Fix authentication flow to be Internet Computer compatible: remove all Node mail server and SMTP server usage from email OTP system, replace with IC-compatible HTTP outcall method for email delivery, ensure all authentication logic runs exclusively via canister calls without any direct server-side email handling",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Refactor backend to ensure canister-safe architecture: convert all backend logic to use only Motoko canister functions and query/update methods, remove any custom Node.js server code, eliminate all external persistent connections (database connections, WebSocket servers), remove background listeners and polling loops, ensure backend operates purely on request/response canister call model",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Implement backend-enforced RBAC system with Patient, Doctor, Admin, and SuperAdmin roles stored in canister state, with user model including previousRole and roleExpiresAt for temporary admin management",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Seed initial SuperAdmin role for shanmukhamanikanta.inti@gmail.com in backend canister configuration during first deployment",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Create unified Admin dashboard at /admin consolidating all system-level controls with sections for Users, Doctors, Devices, Appointments, Admin Management, and Audit Logs, merging existing doctor approval functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Implement device management system tracking IoT health monitors with Device ID, Linked Patient ID, Status, and Last Sync, supporting view all, activate/deactivate, reassign between patients, and reset device link actions for admins",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Implement temporary admin access with time-limited roles: store previousRole, set roleExpiresAt timestamp, automatically revert to previousRole on expiration, show 'Temporary Admin — Expires in X days' in dashboard",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Implement server-side permission validation in all protected canister functions: fetch user, validate role, validate roleExpiresAt, auto-revert expired roles, deny unauthorized access",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Implement SuperAdmin capabilities: promote user to Admin, grant temporary Admin access with expiry, extend Admin expiry, revoke Admin, view all Admins, manage users/doctors/devices/appointments, view audit logs",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Implement audit logging system storing all admin actions (Grant Admin, Revoke Admin, Extend Admin, Approve Doctor, Suspend User, Reassign Device) in backend canister state with performer, action, target, and timestamp",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Implement polling for role changes and admin updates: high priority (role changes, doctor approvals) every 3-5 seconds, medium priority (device updates) every 10-15 seconds, using React Query with background refetch and cache invalidation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Ensure frontend fetches role from backend and renders UI accordingly, never trusting localStorage or email-based role decisions, with automatic redirects for expired admin access and proper separation between Doctor and Admin dashboards",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Update backend user model in main.mo to include role field (Patient | Doctor | Admin | SuperAdmin), previousRole field (optional, stores role before temporary admin promotion), roleExpiresAt field (optional timestamp for temporary admin access), and status field",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-42",
+      "summary": "Implement initial SuperAdmin seeding in backend during first user registration: if email matches 'shanmukhamanikanta.inti@gmail.com', automatically assign role as SuperAdmin with roleExpiresAt set to null (permanent access)",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-43",
+      "summary": "Create backend device management system in main.mo: add Device type with deviceId (Text), linkedPatientId (optional Principal), status (Active | Inactive), and lastSync (Int timestamp), implement HashMap to store devices, add functions to create device, link device to patient, unlink device, activate/deactivate device, get all devices, and get devices by patient",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-44",
+      "summary": "Implement server-side role validation and automatic expiration handling in all protected backend functions: before executing any admin/doctor-only action, fetch user record, validate role matches required permission level, check if role is Admin with non-null roleExpiresAt, if current timestamp exceeds roleExpiresAt then automatically revert role to previousRole and clear roleExpiresAt, deny access and return error if role validation fails",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-45",
+      "summary": "Implement temporary admin access management functions in backend: addTemporaryAdmin (SuperAdmin only) that takes targetUserId, expirationTimestamp, stores user's current role in previousRole, sets role to Admin, sets roleExpiresAt to provided timestamp; extendAdminExpiry (SuperAdmin only) that updates roleExpiresAt; revokeAdmin (SuperAdmin only) that reverts role to previousRole immediately and clears roleExpiresAt",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-46",
+      "summary": "Create audit logging system in backend: add AuditLog type with performedBy (Principal), action (Text), targetUser (optional Principal), timestamp (Int), and metadata (optional Text), store audit logs in stable HashMap, implement logAuditAction function that creates audit log entry, add getAuditLogs function (SuperAdmin only) that returns paginated audit logs, log all admin actions: Grant Admin, Revoke Admin, Extend Admin, Approve Doctor, Suspend User, Reassign Device",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-47",
+      "summary": "Add backend query functions for role and admin management: getUserRole that returns caller's current role and expiration info, getAllAdmins (SuperAdmin only) that returns list of all users with Admin or SuperAdmin role, checkAdminExpiration that validates if caller's admin access is still valid, promoteToAdmin (SuperAdmin only) that promotes user to permanent Admin role without expiration",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-48",
+      "summary": "Implement global keyboard shortcut (Ctrl + Q) to navigate to /admin route when user is authenticated and inside the app, blocked when typing in input fields/textareas/contenteditable elements, with silent navigation for Admin/SuperAdmin and 'Access Denied' toast redirect for unauthorized users",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-49",
+      "summary": "Remove all visible Admin links from Header and sidebar navigation for all users (including SuperAdmin and Admin), ensuring admin access is only available via direct URL /admin or Ctrl + Q shortcut for cleaner UI and clear governance layer separation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-53",
+      "summary": "Remove all visible Admin navigation links from Header component and any sidebar navigation for all user roles including SuperAdmin, Admin, Doctor, and Patient, ensuring admin dashboard access is only available via direct URL /admin or Ctrl + Q keyboard shortcut",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "status": "pending"
     }
   ],
   "projectName": "Deploy changes to production",

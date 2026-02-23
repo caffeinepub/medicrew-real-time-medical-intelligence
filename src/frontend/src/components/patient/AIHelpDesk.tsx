@@ -1,283 +1,209 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Progress } from '@/components/ui/progress';
-import { X, Upload, Sparkles, AlertTriangle, CheckCircle, MapPin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { X, Upload, MessageCircle, MapPin, AlertCircle } from 'lucide-react';
+import { isMockMode } from '../../config/env';
 
 interface AIHelpDeskProps {
   onClose: () => void;
 }
 
 export default function AIHelpDesk({ onClose }: AIHelpDeskProps) {
+  const [step, setStep] = useState<'upload' | 'symptoms' | 'analysis' | 'doctors'>('upload');
   const [symptoms, setSymptoms] = useState('');
-  const [image, setImage] = useState<File | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
-  const [analysisStep, setAnalysisStep] = useState(0);
-  const [result, setResult] = useState<any>(null);
-  const [showMap, setShowMap] = useState(false);
+  const [urgency, setUrgency] = useState<'low' | 'medium' | 'high'>('medium');
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
+  useEffect(() => {
+    if (isMockMode) {
+      console.warn('🤖 AI Help Desk running in mock mode - using simulated diagnosis');
     }
-  };
+  }, []);
 
   const handleAnalyze = async () => {
-    if (!symptoms.trim() && !image) return;
-
     setAnalyzing(true);
-    setAnalysisStep(0);
-    
-    // Simulate multi-step analysis
-    const steps = ['Analyzing symptoms...', 'Processing image...', 'Generating recommendations...'];
-    for (let i = 0; i < steps.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 800));
-      setAnalysisStep(i + 1);
-    }
-    
-    setTimeout(() => {
-      const urgency = symptoms.toLowerCase().includes('severe') || symptoms.toLowerCase().includes('emergency') ? 'Emergency' : 
-                     symptoms.toLowerCase().includes('pain') ? 'Warning' : 'Normal';
-      
-      setResult({
-        condition: 'Common Cold',
-        confidence: 85,
-        urgency,
-        firstAid: [
-          'Rest and stay hydrated',
-          'Take over-the-counter pain relievers if needed',
-          'Monitor temperature regularly',
-          'Seek medical attention if symptoms worsen',
-        ],
-        nearbyDoctors: [
-          { name: 'Dr. Sarah Johnson', specialty: 'General Practice', distance: '1.2 km' },
-          { name: 'Dr. Michael Chen', specialty: 'Internal Medicine', distance: '2.5 km' },
-        ],
-      });
-      setAnalyzing(false);
-      setAnalysisStep(0);
-    }, 2400);
+    // Simulate AI analysis with polling pattern (not real-time WebSocket)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setAnalyzing(false);
+    setStep('analysis');
   };
 
-  const getUrgencyColor = (urgency: string) => {
-    switch (urgency) {
-      case 'Emergency': return 'critical';
-      case 'Warning': return 'warning';
-      default: return 'success';
-    }
-  };
-
-  const getUrgencyGlow = (urgency: string) => {
-    switch (urgency) {
-      case 'Emergency': return 'glow-critical';
-      case 'Warning': return 'glow-warning';
-      default: return 'glow-success';
+  const getUrgencyColor = (level: string) => {
+    switch (level) {
+      case 'high': return 'alert-critical';
+      case 'medium': return 'alert-warning';
+      default: return 'alert-normal';
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-background/90 backdrop-blur-md z-50 flex items-center justify-end animate-fade-in">
-      <Card className="w-full max-w-2xl h-[95vh] flex flex-col shadow-glow-lg glass-panel border-2 border-primary/30 m-4 animate-slide-in-right">
-        <CardHeader className="border-b border-border/30">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-calm-fade-in">
+      <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-soft-lg card-soft">
+        <CardHeader className="border-b">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center glow-primary">
-                <Sparkles className="w-7 h-7 text-primary" />
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-3xl">AI Help Desk</CardTitle>
-                <CardDescription className="text-base">Instant health analysis and first aid</CardDescription>
+                <CardTitle className="text-2xl">AI Health Assistant</CardTitle>
+                <CardDescription>Get instant medical guidance and find nearby doctors</CardDescription>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-destructive/20">
-              <X className="w-6 h-6" />
+            <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-muted">
+              <X className="w-5 h-5" />
             </Button>
           </div>
         </CardHeader>
 
-        <CardContent className="flex-1 overflow-y-auto p-8 space-y-8">
-          {!result ? (
-            <>
-              {analyzing && (
-                <div className="glass-card rounded-2xl p-8 space-y-4 animate-scale-in">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-                    <div>
-                      <div className="text-lg font-medium">Analyzing...</div>
-                      <div className="text-sm text-muted-foreground">
-                        {analysisStep === 1 && 'Analyzing symptoms...'}
-                        {analysisStep === 2 && 'Processing image...'}
-                        {analysisStep === 3 && 'Generating recommendations...'}
-                      </div>
-                    </div>
-                  </div>
-                  <Progress value={(analysisStep / 3) * 100} className="h-2" />
-                </div>
-              )}
+        <CardContent className="p-6 space-y-6">
+          {isMockMode && (
+            <div className="bg-alert-warning/10 border border-alert-warning/20 rounded-lg p-4">
+              <p className="text-sm text-foreground">
+                <strong>Mock Mode:</strong> AI features are using simulated data for development.
+              </p>
+            </div>
+          )}
 
-              {!analyzing && (
-                <>
-                  <div className="space-y-3">
-                    <Label htmlFor="image" className="text-base">Upload Image (Optional)</Label>
-                    <div className="border-2 border-dashed border-border/50 rounded-2xl p-10 text-center hover:border-primary/50 transition-all duration-300 cursor-pointer glass-card">
-                      <input
-                        id="image"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                      <label htmlFor="image" className="cursor-pointer">
-                        {image ? (
-                          <div className="space-y-3 animate-scale-in">
-                            <CheckCircle className="w-16 h-16 text-success mx-auto" />
-                            <p className="text-base font-medium">{image.name}</p>
-                          </div>
-                        ) : (
-                          <div className="space-y-3">
-                            <Upload className="w-16 h-16 text-muted-foreground mx-auto" />
-                            <p className="text-base text-muted-foreground">Click to upload an image</p>
-                          </div>
-                        )}
-                      </label>
-                    </div>
-                  </div>
+          {/* Progress Indicator */}
+          <div className="flex items-center gap-2">
+            {['upload', 'symptoms', 'analysis', 'doctors'].map((s, i) => (
+              <div key={s} className="flex items-center flex-1">
+                <div
+                  className={`h-2 rounded-full flex-1 transition-all duration-400 ${
+                    ['upload', 'symptoms', 'analysis', 'doctors'].indexOf(step) >= i
+                      ? 'bg-primary'
+                      : 'bg-muted'
+                  }`}
+                />
+              </div>
+            ))}
+          </div>
 
-                  <div className="space-y-3">
-                    <Label htmlFor="symptoms" className="text-base">Describe Your Symptoms</Label>
-                    <Textarea
-                      id="symptoms"
-                      placeholder="E.g., I have a headache and fever for 2 days..."
-                      value={symptoms}
-                      onChange={(e) => setSymptoms(e.target.value)}
-                      rows={8}
-                      className="resize-none text-base glass-card"
-                    />
-                  </div>
+          {step === 'upload' && (
+            <div className="space-y-6">
+              <div className="border-2 border-dashed border-border rounded-xl p-12 text-center hover:border-primary transition-colors cursor-pointer">
+                <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Upload Medical Image</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Upload X-rays, scans, or photos for AI analysis
+                </p>
+                <Button variant="outline" className="rounded-full">
+                  Choose File
+                </Button>
+              </div>
+              <Button onClick={() => setStep('symptoms')} className="w-full rounded-full hover-lift" size="lg">
+                Continue
+              </Button>
+            </div>
+          )}
 
-                  <Button 
-                    onClick={handleAnalyze} 
-                    disabled={!symptoms.trim() && !image}
-                    className="w-full rounded-full shadow-glow"
-                    size="lg"
-                  >
-                    <Sparkles className="w-5 h-5 mr-2" />
-                    Analyze Symptoms
-                  </Button>
+          {step === 'symptoms' && (
+            <div className="space-y-6">
+              <div>
+                <label className="text-base font-medium mb-3 block">Describe Your Symptoms</label>
+                <Textarea
+                  placeholder="Please describe what you're experiencing..."
+                  value={symptoms}
+                  onChange={(e) => setSymptoms(e.target.value)}
+                  rows={6}
+                  className="resize-none"
+                />
+              </div>
+              <div className="flex gap-3">
+                <Button variant="outline" onClick={() => setStep('upload')} className="flex-1 rounded-full hover-lift">
+                  Back
+                </Button>
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={!symptoms.trim() || analyzing}
+                  className="flex-1 rounded-full hover-lift"
+                >
+                  {analyzing ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                      Analyzing...
+                    </>
+                  ) : (
+                    'Analyze'
+                  )}
+                </Button>
+              </div>
+            </div>
+          )}
 
-                  <div className="glass-card rounded-2xl p-6 text-sm text-muted-foreground border border-warning/30">
-                    <p className="font-medium mb-2 flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4" />
-                      Disclaimer
-                    </p>
-                    <p>This is an AI simulation for demonstration purposes only. Always consult with a qualified healthcare professional for medical advice.</p>
-                  </div>
-                </>
-              )}
-            </>
-          ) : (
-            <div className="space-y-6 animate-fade-in-up">
-              {/* Result Card with Urgency Glow */}
-              <Card className={`glass-panel border-2 ${getUrgencyGlow(result.urgency)} animate-scale-in`}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-2xl">Analysis Result</CardTitle>
-                    <Badge 
-                      variant={result.urgency === 'Emergency' ? 'destructive' : 'default'}
-                      className={`text-base px-4 py-1 ${
-                        result.urgency === 'Warning' ? 'bg-warning text-warning-foreground' : 
-                        result.urgency === 'Normal' ? 'bg-success text-success-foreground' : ''
-                      }`}
-                    >
-                      {result.urgency}
+          {step === 'analysis' && (
+            <div className="space-y-6">
+              <div className={`p-6 rounded-xl bg-${getUrgencyColor(urgency)}/10 border-2 border-${getUrgencyColor(urgency)}/20`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <AlertCircle className={`w-6 h-6 text-${getUrgencyColor(urgency)}`} />
+                  <div>
+                    <h3 className="font-semibold text-lg">AI Analysis Complete</h3>
+                    <Badge variant="outline" className={`mt-1 bg-${getUrgencyColor(urgency)}/20 text-${getUrgencyColor(urgency)} border-${getUrgencyColor(urgency)}/30`}>
+                      {urgency.charAt(0).toUpperCase() + urgency.slice(1)} Urgency
                     </Badge>
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-2">Probable Condition</p>
-                    <p className="text-3xl font-bold">{result.condition}</p>
-                    <p className="text-base text-muted-foreground mt-2">Confidence: {result.confidence}%</p>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+                <p className="text-sm leading-relaxed">
+                  Based on your symptoms, we recommend consulting with a healthcare professional. 
+                  Your symptoms may indicate a condition that requires medical attention.
+                </p>
+              </div>
 
-              {/* First Aid Steps */}
-              <Card className="glass-card animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                <CardHeader>
-                  <CardTitle className="text-xl flex items-center gap-3">
-                    <AlertTriangle className="w-6 h-6" />
-                    First Aid Recommendations
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-4">
-                    {result.firstAid.map((step: string, i: number) => (
-                      <li key={i} className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-sm font-bold text-primary">{i + 1}</span>
-                        </div>
-                        <span className="text-base">{step}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <div className="bg-muted/50 rounded-xl p-6">
+                <h4 className="font-semibold mb-3">Recommendations</h4>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>Schedule an appointment with a general practitioner</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>Monitor your symptoms and note any changes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>Stay hydrated and get adequate rest</span>
+                  </li>
+                </ul>
+              </div>
 
-              {/* Nearby Doctors with Map */}
-              <Card className="glass-card animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl flex items-center gap-3">
-                      <MapPin className="w-6 h-6" />
-                      Nearby Doctors
-                    </CardTitle>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => setShowMap(!showMap)}
-                      className="rounded-full"
-                    >
-                      {showMap ? 'Hide Map' : 'Show Map'}
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {showMap && (
-                    <div className="relative rounded-2xl overflow-hidden mb-4 animate-scale-in">
-                      <img 
-                        src="/assets/generated/map-mockup.dim_1200x800.png"
-                        alt="Doctors Map"
-                        className="w-full h-64 object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
-                    </div>
-                  )}
-                  
-                  {result.nearbyDoctors.map((doctor: any, i: number) => (
-                    <div key={i} className="flex items-center justify-between p-4 rounded-xl glass-card hover:border-primary/30 transition-all">
-                      <div>
-                        <p className="font-medium text-base">{doctor.name}</p>
-                        <p className="text-sm text-muted-foreground">{doctor.specialty}</p>
-                      </div>
-                      <div className="text-right flex items-center gap-3">
+              <Button onClick={() => setStep('doctors')} className="w-full rounded-full hover-lift" size="lg">
+                Find Nearby Doctors
+              </Button>
+            </div>
+          )}
+
+          {step === 'doctors' && (
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-6 h-6 text-primary" />
+                <h3 className="text-lg font-semibold">Nearby Doctors</h3>
+              </div>
+
+              <div className="space-y-3">
+                {[1, 2, 3].map((i) => (
+                  <Card key={i} className="card-soft hover-lift">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm font-medium">{doctor.distance}</p>
+                          <h4 className="font-semibold">Dr. Sample Doctor {i}</h4>
+                          <p className="text-sm text-muted-foreground">General Medicine</p>
+                          <p className="text-xs text-muted-foreground mt-1">{i * 0.5} km away</p>
                         </div>
-                        <Button size="sm" className="rounded-full">
-                          Notify
+                        <Button variant="outline" size="sm" className="rounded-full">
+                          Book
                         </Button>
                       </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-              <Button onClick={() => setResult(null)} variant="outline" className="w-full rounded-full" size="lg">
-                New Analysis
+              <Button variant="outline" onClick={onClose} className="w-full rounded-full hover-lift">
+                Close
               </Button>
             </div>
           )}

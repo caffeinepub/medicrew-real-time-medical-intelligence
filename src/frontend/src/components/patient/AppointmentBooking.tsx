@@ -65,10 +65,10 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
           {doctors.map((doctor) => (
             <Card
               key={doctor.user.toString()}
-              className={`cursor-pointer transition-all hover:shadow-md ${
+              className={`cursor-pointer transition-all duration-400 hover-lift ${
                 selectedDoctor === doctor.user.toString()
                   ? 'border-primary border-2 bg-primary/5'
-                  : 'border-border'
+                  : 'card-soft'
               }`}
               onClick={() => setSelectedDoctor(doctor.user.toString())}
             >
@@ -81,7 +81,7 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
                     <div className="flex items-center gap-2 mb-1">
                       <h4 className="font-semibold">Dr. {doctor.name}</h4>
                       {doctor.verified && (
-                        <Badge variant="outline" className="text-xs bg-success/10 text-success border-success/20">
+                        <Badge variant="outline" className="text-xs bg-alert-normal/10 text-alert-normal border-alert-normal/20">
                           <CheckCircle2 className="w-3 h-3 mr-1" />
                           Verified
                         </Badge>
@@ -105,13 +105,13 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
       )}
 
       <div className="flex gap-3 pt-4">
-        <Button variant="outline" onClick={onClose} className="flex-1">
+        <Button variant="outline" onClick={onClose} className="flex-1 rounded-full hover-lift">
           Cancel
         </Button>
         <Button
           onClick={() => setStep('datetime')}
           disabled={!selectedDoctor}
-          className="flex-1"
+          className="flex-1 rounded-full hover-lift"
         >
           Continue
         </Button>
@@ -142,7 +142,7 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
               <Button
                 key={time}
                 variant={selectedTime === time ? 'default' : 'outline'}
-                className="w-full"
+                className="w-full rounded-full hover-lift"
                 onClick={() => setSelectedTime(time)}
               >
                 <Clock className="w-4 h-4 mr-2" />
@@ -154,13 +154,13 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
       )}
 
       <div className="flex gap-3 pt-4">
-        <Button variant="outline" onClick={() => setStep('doctor')} className="flex-1">
+        <Button variant="outline" onClick={() => setStep('doctor')} className="flex-1 rounded-full hover-lift">
           Back
         </Button>
         <Button
           onClick={() => setStep('details')}
           disabled={!selectedDate || !selectedTime}
-          className="flex-1"
+          className="flex-1 rounded-full hover-lift"
         >
           Continue
         </Button>
@@ -188,13 +188,13 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
       </div>
 
       <div className="flex gap-3 pt-4">
-        <Button variant="outline" onClick={() => setStep('datetime')} className="flex-1">
+        <Button variant="outline" onClick={() => setStep('datetime')} className="flex-1 rounded-full hover-lift">
           Back
         </Button>
         <Button
           onClick={() => setStep('confirm')}
           disabled={!description.trim()}
-          className="flex-1"
+          className="flex-1 rounded-full hover-lift"
         >
           Review Appointment
         </Button>
@@ -239,21 +239,21 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
         </div>
       </div>
 
-      <div className="bg-warning/10 border border-warning/20 rounded-lg p-4">
-        <p className="text-sm text-warning-foreground">
+      <div className="bg-alert-warning/10 border border-alert-warning/20 rounded-lg p-4">
+        <p className="text-sm text-foreground">
           <strong>Note:</strong> This is a demonstration appointment booking system. 
           In production, you would receive a confirmation email and SMS reminder.
         </p>
       </div>
 
       <div className="flex gap-3 pt-4">
-        <Button variant="outline" onClick={() => setStep('details')} className="flex-1" disabled={isBooking}>
+        <Button variant="outline" onClick={() => setStep('details')} className="flex-1 rounded-full hover-lift" disabled={isBooking}>
           Back
         </Button>
         <Button
           onClick={handleBookAppointment}
           disabled={isBooking}
-          className="flex-1"
+          className="flex-1 rounded-full hover-lift"
         >
           {isBooking ? (
             <>
@@ -314,7 +314,7 @@ export default function AppointmentBooking({ onClose }: AppointmentBookingProps)
           {['doctor', 'datetime', 'details', 'confirm'].map((s, i) => (
             <div key={s} className="flex items-center flex-1">
               <div
-                className={`h-2 rounded-full flex-1 transition-all ${
+                className={`h-2 rounded-full flex-1 transition-all duration-400 ${
                   ['doctor', 'datetime', 'details', 'confirm'].indexOf(step) >= i
                     ? 'bg-primary'
                     : 'bg-muted'
