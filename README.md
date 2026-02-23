@@ -1,2 +1,3 @@
-# medicrew-real-time-medical-intelligence
-Exported from Caffeine project: MediCrew — Real Time Medical Intelligence
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

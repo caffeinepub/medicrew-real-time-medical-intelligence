@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "MediCrew - An ultra-premium, animation-rich healthcare web experience with immersive igloo.inc-inspired UI featuring a cinematic landing page, patient dashboard with glass morphism, doctor mission control dashboard, and Help Desk system. Dark theme with electric blue accents, smooth animations, and Awwwards-level polish.",
+  "architectural_notes": [
+    "Igloo.inc-inspired UI with ultra-minimal dark premium aesthetic, glass morphism, and cinematic animations",
+    "Simulated real-time data for patient vitals and live updates (no WebSocket support)",
+    "Visual map mockup with custom graphics instead of real geolocation services",
+    "React-based smooth animations with Tailwind styling for premium interactions",
+    "Multi-step Help Desk system with glass panel UI and urgency color-coding"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Abstract floating particles or gradient orbs for hero section background animation, subtle and cinematic (hero-particles.dim_1920x1080.png)\n- Dark mode stylized map visualization with glowing markers and grid overlay for medical facility locator (map-mockup.dim_1200x800.png)\n- Elegant health status icon illustration with glass effect for patient dashboard center card (health-status-icon.dim_256x256.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-an-immersive-landing-page-with-full-viewport-hero-section-featuring-large-bold-text-medicrew-intelligent-healthcare-in-motion-subtle-animated-background-with-gradient-shift-or-floating-particles-smooth-fade-in-text-animations-and-a-button-with-magnetic-hover-effect",
+      "title": "Create an immersive landing page with full-viewport hero section featuring large bold text 'MediCrew — Intelligent Healthcare in Motion', subtle animated background with gradient shift or floating particles, smooth fade-in text animations, and a button with magnetic hover effect",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-minimal-transparent-navigation-bar-that-smoothly-hides-and-reveals-on-scroll",
+      "title": "Implement minimal transparent navigation bar that smoothly hides and reveals on scroll",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-smooth-cinematic-scroll-experience-with-section-snap-scrolling-where-each-section-ai-medical-intelligence-real-time-device-monitoring-doctor-alert-system-secure-verified-professionals-call-to-action-transitions-with-fade-slide-animations-layered-depth-movement-and-subtle-parallax-effects",
+      "title": "Create smooth cinematic scroll experience with section snap scrolling, where each section (AI Medical Intelligence, Real-Time Device Monitoring, Doctor Alert System, Secure & Verified Professionals, Call to Action) transitions with fade + slide animations, layered depth movement, and subtle parallax effects",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-patient-dashboard-with-dark-immersive-background-floating-glass-panels-with-soft-glow-edges-and-depth-shadows-logo-positioned-left-profile-and-device-status-right-large-animated-health-status-card-in-center-and-two-floating-action-panels-for-book-appointment-and-health-analysis",
+      "title": "Redesign patient dashboard with dark immersive background, floating glass panels with soft glow edges and depth shadows, logo positioned left, profile and device status right, large animated health status card in center, and two floating action panels for 'Book Appointment' and 'Health Analysis'",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-glowing-circular-help-desk-button-in-bottom-right-of-patient-dashboard-with-soft-pulse-animation-that-opens-a-smooth-slide-in-glass-ui-panel-featuring-multi-step-progress-indicator-animated-result-cards-with-urgency-color-coded-glow-and-an-expanding-map-section-with-smooth-animation",
+      "title": "Add a glowing circular Help Desk button in bottom-right of patient dashboard with soft pulse animation that opens a smooth slide-in glass UI panel featuring multi-step progress indicator, animated result cards with urgency color-coded glow, and an expanding map section with smooth animation",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-doctor-dashboard-with-mission-control-aesthetic-slim-vertical-navigation-on-left-main-area-displaying-grid-of-live-patient-cards-with-dark-glass-styling-glow-edges-animated-live-vitals-numbers-and-mini-line-chart-animations",
+      "title": "Redesign doctor dashboard with mission control aesthetic: slim vertical navigation on left, main area displaying grid of live patient cards with dark glass styling, glow edges, animated live vitals numbers, and mini line chart animations",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-critical-patient-alert-system-in-doctor-dashboard-where-critical-patients-display-subtle-red-glow-pulse-on-their-card-and-an-alert-banner-slides-in-smoothly-from-top-with-smooth-notification-animation",
+      "title": "Implement critical patient alert system in doctor dashboard where critical patients display subtle red glow pulse on their card, and an alert banner slides in smoothly from top with smooth notification animation",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-comprehensive-design-system-with-deep-charcoal-midnight-blue-background-soft-electric-blue-accents-subtle-glass-transparency-layers-clean-white-typography-large-bold-headlines-thin-elegant-body-font-generous-spacing-and-editorial-style-layout",
+      "title": "Implement comprehensive design system with deep charcoal/midnight blue background, soft electric blue accents, subtle glass transparency layers, clean white typography, large bold headlines, thin elegant body font, generous spacing, and editorial style layout",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-micro-interactions-throughout-the-application-including-smooth-page-transitions-magnetic-button-hover-effects-subtle-scaling-on-hover-scroll-based-fade-ins-animated-counters-glass-morphism-layers-and-soft-shadow-depth",
+      "title": "Add micro-interactions throughout the application including smooth page transitions, magnetic button hover effects, subtle scaling on hover, scroll-based fade-ins, animated counters, glass morphism layers, and soft shadow depth",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-dark-mode-visual-map-mockup-with-glowing-doctor-markers-smooth-zoom-transitions-and-floating-info-cards-for-the-help-desk-and-hospital-locator-features",
+      "title": "Create dark mode visual map mockup with glowing doctor markers, smooth zoom transitions, and floating info cards for the Help Desk and hospital locator features",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-optimize-all-animations-to-feel-smooth-professional-and-cinematic-without-being-overwhelming-prioritizing-polish-over-clutter-to-achieve-an-awwwards-level-digital-experience",
+      "title": "Optimize all animations to feel smooth, professional, and cinematic without being overwhelming, prioritizing polish over clutter to achieve an Awwwards-level digital experience",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Immersive landing page with full-screen hero, cinematic animations, smooth scroll sections (AI Intelligence, Device Monitoring, Doctor Alerts, Professional Verification), parallax effects, and minimal navigation",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Patient dashboard with dark glass UI, floating panels, animated health status card, booking/analysis action panels, glowing Help Desk button with multi-step glass panel, urgency-coded results, and visual map mockup",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Doctor dashboard with mission control layout, slim side navigation, grid of live patient cards with simulated animated vitals and mini charts, critical patient alerts with red glow pulse animations",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Premium design system with deep charcoal/midnight blue base, electric blue accents, glass morphism, magnetic hover effects, scroll-based animations, smooth transitions, and Awwwards-level polish",
+      "reqIds": [],
+      "status": "in_progress"
+    }
+  ],
+  "projectName": "Deploy changes to production",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

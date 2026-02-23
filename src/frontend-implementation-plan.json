@@ -1,0 +1,308 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Transform MediCrew into Igloo-style immersive healthcare experience",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create immersive landing page with full-viewport hero section featuring large bold text, animated background, smooth fade-in animations, and magnetic hover button",
+      "acceptanceCriteria": [
+        "Hero section occupies full viewport height",
+        "Text animates in smoothly on page load",
+        "Background has subtle gradient shift or particle animation",
+        "Button has magnetic hover effect that follows cursor"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Replace existing landing page with full-viewport immersive hero section. Add large bold headline 'MediCrew — Intelligent Healthcare in Motion' with smooth fade-in text animation. Integrate the generated hero particles image (frontend/public/assets/generated/hero-particles.dim_1920x1080.png) as background with subtle gradient shift animation. Implement magnetic hover effect on CTA button that follows cursor movement using mouse position tracking and CSS transforms."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add CSS keyframe animations for hero text fade-in, gradient shift background animation, and magnetic button hover effects. Define animation timing functions for smooth cinematic transitions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement minimal transparent navigation bar that smoothly hides and reveals on scroll",
+      "acceptanceCriteria": [
+        "Navigation has transparent background",
+        "Navigation smoothly hides when scrolling down",
+        "Navigation reveals when scrolling up"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "Transform header into minimal transparent navigation. Add scroll event listener to track scroll direction and implement smooth hide/reveal animation using CSS transitions and transform properties. Apply transparent background with subtle backdrop blur."
+        },
+        {
+          "path": "frontend/src/hooks/useScrollDirection.ts",
+          "operation": "create",
+          "description": "Create custom hook that detects scroll direction (up/down) using window scroll events and returns current direction state for header visibility control."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create smooth cinematic scroll experience with section snap scrolling, fade + slide animations, layered depth movement, and subtle parallax effects",
+      "acceptanceCriteria": [
+        "Five distinct sections scroll smoothly with snap behavior",
+        "Each section has fade and slide-in animations",
+        "Parallax depth effects are applied to background elements",
+        "Transitions feel cinematic and professional"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Add five distinct full-viewport sections after hero: AI Medical Intelligence, Real-Time Device Monitoring, Doctor Alert System, Secure & Verified Professionals, Call to Action. Apply CSS scroll-snap-type to container. Implement intersection observer to trigger fade and slide-in animations as each section enters viewport. Add parallax effect to background layers using scroll position transforms."
+        },
+        {
+          "path": "frontend/src/hooks/useIntersectionObserver.ts",
+          "operation": "create",
+          "description": "Create custom hook that uses Intersection Observer API to detect when elements enter viewport, returning visibility state for triggering section animations."
+        },
+        {
+          "path": "frontend/src/hooks/useParallax.ts",
+          "operation": "create",
+          "description": "Create custom hook that tracks scroll position and calculates transform values for parallax depth effects on background elements."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add scroll-snap CSS properties, keyframe animations for section fade and slide transitions, and parallax transform utilities with smooth easing functions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Redesign patient dashboard with dark immersive background, floating glass panels with soft glow edges, logo left, profile right, animated health status card center, and two floating action panels",
+      "acceptanceCriteria": [
+        "Dashboard uses dark charcoal/midnight blue background",
+        "All panels have glass morphism styling with glowing edges",
+        "Health status card animates on load",
+        "Two action panels are clearly visible and styled as floating cards"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/PatientHome.tsx",
+          "operation": "modify",
+          "description": "Redesign layout with dark immersive background. Position MediCrew logo on left side, profile/device status on right. Create large animated health status card in center using the generated health status icon (frontend/public/assets/generated/health-status-icon.dim_256x256.png) with entrance animation. Add two floating glass panel action cards for 'Book Appointment' and 'Health Analysis' with soft glow edges and depth shadows. Apply glass morphism styling with backdrop blur and subtle borders."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add glass morphism utility classes with backdrop-filter blur, soft glow box-shadow effects, and depth shadow layers. Define keyframe animation for health status card entrance with scale and fade."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add glowing circular Help Desk button in bottom-right with pulse animation that opens smooth slide-in glass panel featuring multi-step progress, animated result cards with urgency glow, and expanding map section",
+      "acceptanceCriteria": [
+        "Help Desk button glows and pulses in bottom-right corner",
+        "Panel slides in smoothly when button is clicked",
+        "Panel has glass morphism styling",
+        "Multi-step progress indicator shows current step",
+        "Result cards animate in and have urgency-based colored glows",
+        "Map section expands with smooth animation when triggered"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/PatientHome.tsx",
+          "operation": "modify",
+          "description": "Add fixed position glowing circular Help Desk button in bottom-right corner with CSS pulse animation. Implement onClick handler to trigger AIHelpDesk panel slide-in from right side with smooth transition."
+        },
+        {
+          "path": "frontend/src/components/patient/AIHelpDesk.tsx",
+          "operation": "modify",
+          "description": "Redesign as slide-in glass panel with smooth enter/exit transitions. Add multi-step progress indicator showing current analysis step. Apply urgency color-coded glow effects (red for critical, yellow for warning, green for normal) to result cards with animated entrance. Create expanding map section using the generated map mockup (frontend/public/assets/generated/map-mockup.dim_1200x800.png) with smooth scale and fade animation when triggered."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add keyframe animation for button pulse glow effect, slide-in panel transitions, urgency-based glow box-shadow utilities (critical-glow, warning-glow, normal-glow), and map expansion animation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Redesign doctor dashboard with mission control aesthetic: slim vertical navigation left, grid of live patient cards with dark glass styling, glow edges, animated vitals numbers, and mini line chart animations",
+      "acceptanceCriteria": [
+        "Slim vertical navigation bar positioned on left side",
+        "Patient cards arranged in responsive grid",
+        "Cards have dark glass styling with glowing edges",
+        "Vital signs numbers animate when updated",
+        "Mini charts show animated vital trends"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DoctorHome.tsx",
+          "operation": "modify",
+          "description": "Redesign layout with slim vertical navigation bar on left side containing icon-based menu items. Position main content area with responsive grid layout for patient cards. Apply mission control dark aesthetic with deep background and ambient lighting effects."
+        },
+        {
+          "path": "frontend/src/components/doctor/PatientList.tsx",
+          "operation": "modify",
+          "description": "Redesign patient cards with dark glass morphism styling, soft glow edges, and depth shadows. Implement animated vital signs numbers that count up or flash on updates using CSS transitions. Add mini line chart visualizations showing vital trends with smooth path animations using Recharts library."
+        },
+        {
+          "path": "frontend/src/components/DoctorNavigation.tsx",
+          "operation": "create",
+          "description": "Create slim vertical navigation component with icon-only menu items for Notifications, Add Patient, Patient List, and Search. Apply glass styling with subtle hover glow effects."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add utility classes for mission control aesthetic with ambient glow effects, animated number transitions, and mini chart styling."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Implement critical patient alert system in doctor dashboard with subtle red glow pulse on critical cards and alert banner sliding from top",
+      "acceptanceCriteria": [
+        "Critical patient cards have pulsing red glow effect",
+        "Alert banner slides smoothly from top when critical condition detected",
+        "Alert animation is smooth and professional"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/doctor/PatientList.tsx",
+          "operation": "modify",
+          "description": "Add conditional styling to apply pulsing red glow effect to patient cards when status is Critical. Implement CSS animation for smooth continuous red glow pulse on card borders and shadows."
+        },
+        {
+          "path": "frontend/src/components/doctor/NotificationsList.tsx",
+          "operation": "modify",
+          "description": "Redesign as slide-in alert banner component that appears from top of viewport when critical condition is detected. Apply smooth slide-down animation with spring easing, red accent background with glass styling, and clear dismiss action."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add keyframe animation for critical red glow pulse effect with smooth opacity transitions, and slide-down banner animation from top."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Implement comprehensive design system with deep charcoal/midnight blue background, soft electric blue accents, glass transparency, clean white typography, large bold headlines, thin body font, generous spacing, and editorial layout",
+      "acceptanceCriteria": [
+        "All pages use charcoal/midnight blue as base color",
+        "Electric blue is used consistently for accents and highlights",
+        "Glass morphism applied to panels and cards",
+        "Typography uses large bold headlines and thin body text",
+        "Layout has generous spacing between elements"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Replace existing color scheme with deep charcoal/midnight blue base colors (oklch format). Define electric blue accent colors for highlights, buttons, and interactive elements. Add glass morphism utility classes with backdrop-filter blur, subtle borders, and transparency. Update typography scale with large bold headline sizes (4xl-6xl) and thin body font weights (300-400). Define generous spacing scale with increased padding and margin utilities."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Update color palette to use deep charcoal/midnight blue as primary background colors and electric blue for accents. Extend typography plugin with large headline sizes and thin font weights. Add custom spacing scale with generous values for editorial layout."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add micro-interactions throughout application: smooth page transitions, magnetic button hover, subtle scaling on hover, scroll-based fade-ins, animated counters, glass morphism, and soft shadow depth",
+      "acceptanceCriteria": [
+        "All page transitions are smooth and animated",
+        "Buttons have magnetic hover effect that follows cursor",
+        "Elements scale subtly on hover",
+        "Elements fade in as they enter viewport during scroll",
+        "Numeric values animate when changing",
+        "All cards and panels use glass morphism styling"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap routing with page transition component that applies fade and slide animations between route changes. Use Framer Motion or CSS transitions for smooth enter/exit animations."
+        },
+        {
+          "path": "frontend/src/hooks/useMagneticHover.ts",
+          "operation": "create",
+          "description": "Create custom hook that tracks mouse position relative to button element and calculates transform values to create magnetic hover effect where button follows cursor within proximity."
+        },
+        {
+          "path": "frontend/src/hooks/useAnimatedCounter.ts",
+          "operation": "create",
+          "description": "Create custom hook that animates numeric values from old to new value using requestAnimationFrame for smooth count-up transitions."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add global transition utilities for smooth interactions, hover scale transforms, scroll-triggered fade-in animations using intersection observer, and comprehensive glass morphism classes with multiple depth levels."
+        },
+        {
+          "path": "frontend/src/components/patient/HealthInsights.tsx",
+          "operation": "modify",
+          "description": "Apply animated counters to vital statistics numbers using useAnimatedCounter hook. Add glass morphism styling to insight cards with soft shadow depth."
+        },
+        {
+          "path": "frontend/src/components/patient/AppointmentBooking.tsx",
+          "operation": "modify",
+          "description": "Apply magnetic hover effect to booking confirmation button using useMagneticHover hook. Add subtle scale transforms on hover to interactive elements."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Create dark mode visual map mockup with glowing doctor markers, smooth zoom transitions, and floating info cards",
+      "acceptanceCriteria": [
+        "Map has dark theme consistent with overall design",
+        "Doctor/facility markers glow with electric blue accent",
+        "Zoom transitions are smooth and cinematic",
+        "Info cards float above map with glass morphism styling"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/HospitalLocator.tsx",
+          "operation": "modify",
+          "description": "Replace existing map implementation with dark mode visual mockup using the generated map image (frontend/public/assets/generated/map-mockup.dim_1200x800.png). Overlay glowing electric blue markers for medical facilities using CSS positioned elements with pulsing glow animation. Implement smooth zoom transitions using CSS transforms and transitions when clicking zoom controls. Add floating info cards with glass morphism styling that appear on marker hover/click."
+        },
+        {
+          "path": "frontend/src/components/MapMarker.tsx",
+          "operation": "create",
+          "description": "Create reusable map marker component with glowing electric blue styling, pulse animation, and click handler to display facility info card. Position absolutely over map mockup."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add keyframe animations for marker glow pulse effect, smooth zoom transform transitions, and floating info card entrance animations."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Optimize all animations to feel smooth, professional, and cinematic without being overwhelming, achieving Awwwards-level polish",
+      "acceptanceCriteria": [
+        "All animations run at 60fps without jank",
+        "Animation durations are balanced and not excessive",
+        "No animation conflicts or overlapping effects",
+        "Overall experience feels premium and polished"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review and optimize all animation timing functions to use smooth cubic-bezier easing curves. Set appropriate animation durations (200-600ms for micro-interactions, 800-1200ms for page transitions). Apply will-change and transform properties for GPU acceleration. Ensure no conflicting animations on same elements. Add prefers-reduced-motion media query support to respect user accessibility preferences."
+        },
+        {
+          "path": "frontend/src/hooks/useReducedMotion.ts",
+          "operation": "create",
+          "description": "Create custom hook that detects user's prefers-reduced-motion setting and returns boolean to conditionally disable animations for accessibility."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-an-immersive-landing-page-with-full-viewport-hero-section-featuring-large-bold-text-medicrew-intelligent-healthcare-in-motion-subtle-animated-background-with-gradient-shift-or-floating-particles-smooth-fade-in-text-animations-and-a-button-with-magnetic-hover-effect",
+      "featureTitle": "Create an immersive landing page with full-viewport hero section featuring large bold text 'MediCrew — Intelligent Healthcare in Motion', subtle animated background with gradient shift or floating particles, smooth fade-in text animations, and a button with magnetic hover effect",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-minimal-transparent-navigation-bar-that-smoothly-hides-and-reveals-on-scroll",
+      "featureTitle": "Implement minimal transparent navigation bar that smoothly hides and reveals on scroll",
+      "files": [
+        "frontend/src/components/Header.tsx",
+        "frontend/src/hooks/useScrollDirection.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-smooth-cinematic-scroll-experience-with-section-snap-scrolling-where-each-section-ai-medical-intelligence-real-time-device-monitoring-doctor-alert-system-secure-verified-professionals-call-to-action-transitions-with-fade-slide-animations-layered-depth-movement-and-subtle-parallax-effects",
+      "featureTitle": "Create smooth cinematic scroll experience with section snap scrolling, where each section (AI Medical Intelligence, Real-Time Device Monitoring, Doctor Alert System, Secure & Verified Professionals, Call to Action) transitions with fade + slide animations, layered depth movement, and subtle parallax effects",
+      "files": [
+        "frontend/src/hooks/useIntersectionObserver.ts",
+        "frontend/src/hooks/useParallax.ts",
+        "frontend/src/index.css",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-redesign-patient-dashboard-with-dark-immersive-background-floating-glass-panels-with-soft-glow-edges-and-depth-shadows-logo-positioned-left-profile-and-device-status-right-large-animated-health-status-card-in-center-and-two-floating-action-panels-for-book-appointment-and-health-analysis",
+      "featureTitle": "Redesign patient dashboard with dark immersive background, floating glass panels with soft glow edges and depth shadows, logo positioned left, profile and device status right, large animated health status card in center, and two floating action panels for 'Book Appointment' and 'Health Analysis'",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/PatientHome.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-glowing-circular-help-desk-button-in-bottom-right-of-patient-dashboard-with-soft-pulse-animation-that-opens-a-smooth-slide-in-glass-ui-panel-featuring-multi-step-progress-indicator-animated-result-cards-with-urgency-color-coded-glow-and-an-expanding-map-section-with-smooth-animation",
+      "featureTitle": "Add a glowing circular Help Desk button in bottom-right of patient dashboard with soft pulse animation that opens a smooth slide-in glass UI panel featuring multi-step progress indicator, animated result cards with urgency color-coded glow, and an expanding map section with smooth animation",
+      "files": [
+        "frontend/src/components/patient/AIHelpDesk.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/PatientHome.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-redesign-doctor-dashboard-with-mission-control-aesthetic-slim-vertical-navigation-on-left-main-area-displaying-grid-of-live-patient-cards-with-dark-glass-styling-glow-edges-animated-live-vitals-numbers-and-mini-line-chart-animations",
+      "featureTitle": "Redesign doctor dashboard with mission control aesthetic: slim vertical navigation on left, main area displaying grid of live patient cards with dark glass styling, glow edges, animated live vitals numbers, and mini line chart animations",
+      "files": [
+        "frontend/src/components/doctor/PatientList.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/DoctorHome.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-critical-patient-alert-system-in-doctor-dashboard-where-critical-patients-display-subtle-red-glow-pulse-on-their-card-and-an-alert-banner-slides-in-smoothly-from-top-with-smooth-notification-animation",
+      "featureTitle": "Implement critical patient alert system in doctor dashboard where critical patients display subtle red glow pulse on their card, and an alert banner slides in smoothly from top with smooth notification animation",
+      "files": [
+        "frontend/src/components/doctor/NotificationsList.tsx",
+        "frontend/src/components/doctor/PatientList.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-comprehensive-design-system-with-deep-charcoal-midnight-blue-background-soft-electric-blue-accents-subtle-glass-transparency-layers-clean-white-typography-large-bold-headlines-thin-elegant-body-font-generous-spacing-and-editorial-style-layout",
+      "featureTitle": "Implement comprehensive design system with deep charcoal/midnight blue background, soft electric blue accents, subtle glass transparency layers, clean white typography, large bold headlines, thin elegant body font, generous spacing, and editorial style layout",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-micro-interactions-throughout-the-application-including-smooth-page-transitions-magnetic-button-hover-effects-subtle-scaling-on-hover-scroll-based-fade-ins-animated-counters-glass-morphism-layers-and-soft-shadow-depth",
+      "featureTitle": "Add micro-interactions throughout the application including smooth page transitions, magnetic button hover effects, subtle scaling on hover, scroll-based fade-ins, animated counters, glass morphism layers, and soft shadow depth",
+      "files": [
+        "frontend/src/hooks/useAnimatedCounter.ts",
+        "frontend/src/hooks/useMagneticHover.ts",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-dark-mode-visual-map-mockup-with-glowing-doctor-markers-smooth-zoom-transitions-and-floating-info-cards-for-the-help-desk-and-hospital-locator-features",
+      "featureTitle": "Create dark mode visual map mockup with glowing doctor markers, smooth zoom transitions, and floating info cards for the Help Desk and hospital locator features",
+      "files": [
+        "frontend/src/components/HospitalLocator.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-optimize-all-animations-to-feel-smooth-professional-and-cinematic-without-being-overwhelming-prioritizing-polish-over-clutter-to-achieve-an-awwwards-level-digital-experience",
+      "featureTitle": "Optimize all animations to feel smooth, professional, and cinematic without being overwhelming, prioritizing polish over clutter to achieve an Awwwards-level digital experience",
+      "files": [
+        "frontend/src/hooks/useReducedMotion.ts",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "user-approval@3.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "blob-storage@4.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
